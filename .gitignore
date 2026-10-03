@@ -218,3 +218,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# keep only the shareable sample audio
+*.wav
+*.mp3
+!samples/*.wav

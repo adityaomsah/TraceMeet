@@ -1,0 +1,18 @@
+# Speech-to-text (local Whisper; bundles PyAV, so no separate ffmpeg install needed)
+faster-whisper>=1.1.0
+
+# LLM providers
+google-genai>=1.0.0        # Gemini (current SDK, not the old google-generativeai)
+ollama>=0.4.0              # optional local fallback provider
+
+# Data contracts and config
+pydantic>=2.8
+pyyaml>=6.0
+python-dotenv>=1.0
+
+# Reliability and text checks
+tenacity>=8.2              # retry with exponential backoff
+rapidfuzz>=3.9             # fuzzy matching of evidence quotes against transcript
+
+# Interface
+streamlit>=1.40

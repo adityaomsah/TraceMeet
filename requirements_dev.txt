@@ -1,0 +1,3 @@
+-r requirements.txt
+pytest>=8.0
+jiwer>=3.0                 # word error rate
