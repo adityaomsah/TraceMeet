@@ -1,6 +1,9 @@
+import json
 import shutil
 from datetime import datetime
 from pathlib import Path
+from time import perf_counter
+from uuid import uuid4
 
 import pandas as pd
 import streamlit as st
@@ -12,23 +15,39 @@ AUDIO_TYPES = ["wav", "mp3", "m4a", "flac", "ogg"]
 VIDEO_TYPES = ["mp4", "mov", "mkv", "webm"]
 RUNS_DIR = Path(__file__).parent / "runs"
 WHISPER_MODEL = "small.en"
+MAX_PREVIEW_BYTES = 50 * 1024 * 1024
+STATE_KEYS = (
+    "raw_transcript", "transcription_seconds", "transcription_terms", "run_dir", "error",
+)
 
 st.set_page_config(page_title="TraceMeet", page_icon="🎙️", layout="wide")
 
 
-@st.cache_resource(show_spinner="Loading speech model (the first run downloads it)...")
-def get_stt(model_name: str) -> LocalWhisper:
-    return LocalWhisper(model_name)
+@st.cache_resource(show_spinner=False)
+def get_transcriber(model_name: str) -> LocalWhisper:
+    return LocalWhisper(model_name=model_name, device="cpu", compute_type="int8")
 
 
-def save_upload(uploaded) -> Path:
-    """Write the upload to disk once so Whisper can read it by path."""
-    run_dir = RUNS_DIR / datetime.now().strftime("%Y%m%d_%H%M%S")
-    run_dir.mkdir(parents=True, exist_ok=True)
+def clear_recording_results() -> None:
+    for key in STATE_KEYS:
+        st.session_state.pop(key, None)
+
+
+def new_run_dir() -> Path:
+    run_id = datetime.now().strftime("%Y%m%d_%H%M%S") + "_" + uuid4().hex[:8]
+    run_dir = RUNS_DIR / run_id
+    run_dir.mkdir(parents=True, exist_ok=False)
+    return run_dir
+
+
+def save_upload(uploaded, run_dir: Path) -> Path:
     path = run_dir / f"input{Path(uploaded.name).suffix.lower()}"
     uploaded.seek(0)
-    with open(path, "wb") as f:
-        shutil.copyfileobj(uploaded, f)
+    try:
+        with path.open("wb") as destination:
+            shutil.copyfileobj(uploaded, destination, length=1024 * 1024)
+    finally:
+        uploaded.seek(0)
     return path
 
 
@@ -38,19 +57,14 @@ def fmt_time(seconds: float) -> str:
     return f"{h:d}:{m:02d}:{s:02d}" if h else f"{m:02d}:{s:02d}"
 
 
-def reset_state(file_id: str) -> None:
-    st.session_state.file_id = file_id
-    st.session_state.media_path = None
-    st.session_state.transcript = None
-    st.session_state.error = None
-
-
 st.title("TraceMeet")
 st.caption("Meeting records you can verify")
 
 uploaded = st.file_uploader(
     "Upload a meeting recording (audio or video)",
     type=AUDIO_TYPES + VIDEO_TYPES,
+    key="meeting_upload",
+    on_change=clear_recording_results,
 )
 
 if uploaded is None:
@@ -61,53 +75,100 @@ if uploaded.size == 0:
     st.error("This file is empty. Please upload a valid recording.")
     st.stop()
 
-file_id = getattr(uploaded, "file_id", f"{uploaded.name}-{uploaded.size}")
-if st.session_state.get("file_id") != file_id:
-    reset_state(file_id)  # a new upload clears the previous results
+suffix = Path(uploaded.name).suffix.lower()
+is_video = suffix.lstrip(".") in VIDEO_TYPES
+st.write(f"**{uploaded.name}**  ·  {uploaded.size / (1024 * 1024):.2f} MiB")
 
-st.write(f"**{uploaded.name}**  ·  {uploaded.size / 1024 / 1024:.2f} MB")
-if (uploaded.type or "").startswith("video/"):
-    preview_col, _ = st.columns([1, 2])
-    with preview_col:
-        st.video(uploaded)
+if uploaded.size <= MAX_PREVIEW_BYTES:
+    uploaded.seek(0)
+    if is_video:
+        preview_col, _ = st.columns([1, 2])
+        with preview_col:
+            st.video(uploaded)
+    else:
+        st.audio(uploaded, format=uploaded.type or "audio/wav")
 else:
-    st.audio(uploaded, format=uploaded.type)
+    st.info("Preview skipped for files larger than 50 MiB.")
 
-if st.button("Transcribe", type="primary"):
-    st.session_state.transcript = None
-    st.session_state.error = None
-    with st.status("Processing...", expanded=True) as status:
-        try:
-            if st.session_state.media_path is None:
-                st.session_state.media_path = save_upload(uploaded)
-            path = st.session_state.media_path
+terms = st.text_input(
+    "Participants and key terms (optional)",
+    placeholder="e.g. Aditya Om Sah, IIT Guwahati, Kubernetes",
+    help="Names and terms expected in the meeting. They give the speech model context; "
+         "they do not prove a name was spoken.",
+).strip()
 
-            status.update(label="Checking the file...")
-            info = validate_media(path)
-            if info.duration_s is not None:
-                st.write(f"File OK, duration {fmt_time(info.duration_s)}.")
+if st.button("Transcribe recording", type="primary"):
+    clear_recording_results()
+    progress_bar = st.progress(0.0, text="Preparing...")
+    started = perf_counter()
+    run_dir = None
+    succeeded = False
+    try:
+        run_dir = new_run_dir()
+        path = save_upload(uploaded, run_dir)
 
-            status.update(label="Transcribing...")
-            stt = get_stt(WHISPER_MODEL)
-            bar = st.progress(0.0, text="Starting...")
-            st.session_state.transcript = stt.transcribe(
+        progress_bar.progress(0.0, text="Checking the file...")
+        validate_media(path)
+
+        with st.spinner("Loading the speech model and transcribing..."):
+            engine = get_transcriber(WHISPER_MODEL)
+            transcript = engine.transcribe(
                 path,
-                on_progress=lambda p: bar.progress(p, text=f"{p:.0%} of the audio processed"),
+                on_progress=lambda p: progress_bar.progress(
+                    p, text=f"Audio position: {p:.0%}"
+                ),
+                terms=terms or None,
             )
-            status.update(label="Transcription complete", state="complete")
-        except (AudioValidationError, TranscriptionError) as exc:
-            st.session_state.error = str(exc)
-            status.update(label="Failed", state="error")
 
-if st.session_state.error:
-    st.error(st.session_state.error)
+        (run_dir / "raw_transcript.json").write_text(
+            transcript.model_dump_json(indent=2), encoding="utf-8"
+        )
+        (run_dir / "meta.json").write_text(
+            json.dumps(
+                {
+                    "original_filename": uploaded.name,
+                    "terms": terms,
+                    "stt_model": transcript.stt_model,
+                    "created": datetime.now().isoformat(timespec="seconds"),
+                },
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
 
-transcript = st.session_state.transcript
+        st.session_state["raw_transcript"] = transcript
+        st.session_state["transcription_seconds"] = perf_counter() - started
+        st.session_state["transcription_terms"] = terms
+        st.session_state["run_dir"] = str(run_dir)
+        succeeded = True
+    except (AudioValidationError, TranscriptionError) as exc:
+        st.session_state["error"] = str(exc)
+    except OSError:
+        st.session_state["error"] = (
+            "Could not read or write the run files. Check disk space and folder permissions."
+        )
+    finally:
+        progress_bar.empty()
+        if run_dir is not None and not succeeded:
+            shutil.rmtree(run_dir, ignore_errors=True)
+
+if st.session_state.get("error"):
+    st.error(st.session_state["error"])
+
+transcript = st.session_state.get("raw_transcript")
 if transcript is not None:
+    st.divider()
     st.subheader("Raw transcript")
     st.caption(
-        f"{len(transcript.segments)} segments  ·  model {transcript.stt_model}"
+        f"{len(transcript.segments)} segments  ·  "
+        f"{st.session_state['transcription_seconds']:.1f} s total (includes model loading)  ·  "
+        f"{transcript.stt_model}"
     )
+    if terms != st.session_state.get("transcription_terms", ""):
+        st.info(
+            "The terms have changed since this transcript was generated. "
+            "Click Transcribe recording to apply them."
+        )
     st.dataframe(
         pd.DataFrame(
             {
@@ -117,6 +178,6 @@ if transcript is not None:
                 "Text": [s.text for s in transcript.segments],
             }
         ),
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )

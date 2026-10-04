@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Optional
 
 import av
+import math
 
 MIN_DURATION_S = 1.0
 
@@ -19,10 +20,15 @@ class MediaInfo:
 
 
 def _duration_seconds(container, stream) -> Optional[float]:
-    if container.duration is not None:
-        return container.duration / av.time_base
+    """Prefer the audio track's own duration; a video can outlast its audio."""
+    candidates = []
     if stream.duration is not None and stream.time_base is not None:
-        return float(stream.duration * stream.time_base)
+        candidates.append(float(stream.duration * stream.time_base))
+    if container.duration is not None:
+        candidates.append(container.duration / av.time_base)
+    for duration in candidates:
+        if math.isfinite(duration) and duration >= 0:
+            return duration
     return None
 
 
@@ -50,8 +56,9 @@ def validate_media(path: str | Path) -> MediaInfo:
         stream = container.streams.audio[0]
         duration = _duration_seconds(container, stream)
         if duration is not None and duration < MIN_DURATION_S:
-            raise AudioValidationError(
-                f"The recording is too short ({duration:.1f}s) to contain a meeting."
+                        raise AudioValidationError(
+                f"The recording is too short ({duration:.1f}s). "
+                f"Minimum supported duration is {MIN_DURATION_S:.0f} second."
             )
 
         return MediaInfo(
