@@ -1,0 +1,9 @@
+stt:
+  model: small.en
+  device: cpu
+  compute_type: int8
+
+llm:
+  refine_model: gemini-3.5-flash-lite
+  minutes_model: gemini-3.6-flash
+  temperature: 1.0
