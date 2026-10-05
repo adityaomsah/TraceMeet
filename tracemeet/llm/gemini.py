@@ -27,7 +27,10 @@ class GeminiProvider(LLMProvider):
         try:
             self.client = genai.Client(
                 api_key=key,
-                http_options=types.HttpOptions(timeout=60_000),
+                http_options=types.HttpOptions(
+                    timeout=60_000,
+                    retry_options=types.HttpRetryOptions(attempts=1),
+                ),
             )
         except Exception as exc:
             raise LLMError(
@@ -60,10 +63,10 @@ class GeminiProvider(LLMProvider):
             if code == 429:
                 raise LLMQuotaError(
                     "Gemini rate limit or quota reached. "
-                    "Check your quota before trying again."
+                    "If retries fail, check the project's quota."
                 ) from exc
 
-            if code in {500, 502, 503, 504}:
+            if code in {408, 500, 502, 503, 504}:
                 raise LLMTemporaryError(
                     f"Gemini is temporarily unavailable (HTTP {code})."
                 ) from exc
@@ -78,8 +81,7 @@ class GeminiProvider(LLMProvider):
 
         except httpx.TransportError as exc:
             raise LLMTemporaryError(
-                "Could not reach Gemini. Check your connection "
-                "and try again."
+                "Could not reach Gemini. Check your connection."
             ) from exc
 
         except Exception as exc:
@@ -105,8 +107,6 @@ class GeminiProvider(LLMProvider):
         if not text or not text.strip():
             raise LLMError("Gemini returned an empty response.")
 
-        # Validate locally even though the API constrains the output.
-        # This also runs our custom Pydantic validators.
         try:
             return schema.model_validate_json(text)
         except ValidationError as exc:
