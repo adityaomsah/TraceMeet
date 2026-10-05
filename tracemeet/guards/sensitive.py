@@ -163,6 +163,12 @@ def guard_refinement(
     *,
     protected_names: Iterable[str] = (),
 ) -> GuardResult:
+    # Reconstruct from plain data so objects retained across a code reload
+    # do not have to share the current Pydantic class identity.
+    # This performs normal validation; it does not bypass any checks.
+    raw = Transcript.model_validate(raw.model_dump(mode="python"))
+    candidate = Transcript.model_validate(candidate.model_dump(mode="python"))
+
     raw_ids = [segment.id for segment in raw.segments]
     candidate_ids = [segment.id for segment in candidate.segments]
 
@@ -176,8 +182,8 @@ def guard_refinement(
     for edit in edits:
         edits_by_segment.setdefault(edit["segment_id"], []).append(edit)
 
-    output_segments = []
-    corrections = []
+    output_segments: list[dict] = []
+    corrections: list[Correction] = []
 
     for original, revised in zip(
         raw.segments, candidate.segments, strict=True
@@ -187,13 +193,14 @@ def guard_refinement(
                 f"Timestamps changed for segment {original.id}."
             )
 
-        segment_edits = edits_by_segment.get(original.id, [])
-        if not segment_edits:
-            output_segments.append(original)
+        segment_changes = edits_by_segment.get(original.id, [])
+
+        if not segment_changes:
+            # Preserve raw wording and its ASR diagnostic fields.
+            output_segments.append(original.model_dump(mode="python"))
             continue
 
-        # Always check the entire segment, even if an individual
-        # edit is labelled whitespace-only.
+        # Check the entire segment, including edits marked whitespace-only.
         flags = sensitive_flags(original.text, revised.text, names)
         status = (
             EditStatus.NEEDS_REVIEW if flags else EditStatus.ACCEPTED
@@ -205,18 +212,22 @@ def guard_refinement(
         )
 
         if flags:
-            output_segments.append(original)
+            output_segments.append(original.model_dump(mode="python"))
         else:
+            # ASR confidence belongs to the raw wording, so do not attach
+            # it to text rewritten by the refiner.
             output_segments.append(
-                Segment(
-                    id=original.id,
-                    start=original.start,
-                    end=original.end,
-                    text=revised.text,
-                )
+                {
+                    "id": original.id,
+                    "start": original.start,
+                    "end": original.end,
+                    "text": revised.text,
+                    "avg_logprob": None,
+                    "no_speech_prob": None,
+                }
             )
 
-        for edit in segment_edits:
+        for edit in segment_changes:
             corrections.append(
                 Correction(
                     segment_id=original.id,
@@ -235,13 +246,17 @@ def guard_refinement(
                 applied=status == EditStatus.ACCEPTED,
             )
 
+    guarded = Transcript.model_validate(
+        {
+            "segments": output_segments,
+            "stt_model": raw.stt_model,
+            "language": raw.language,
+            "duration_s": raw.duration_s,
+        }
+    )
+
     return GuardResult(
-        transcript=Transcript(
-            segments=output_segments,
-            stt_model=raw.stt_model,
-            language=raw.language,
-            duration_s=raw.duration_s,
-        ),
+        transcript=guarded,
         corrections=corrections,
         edits=edits,
     )
