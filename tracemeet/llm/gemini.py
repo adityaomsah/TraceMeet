@@ -18,12 +18,15 @@ class GeminiProvider(LLMProvider):
     name = "gemini"
 
     def __init__(self, api_key: str):
-        if not api_key.strip():
-            raise LLMError("A non-empty Gemini API key is required.")
+        key = api_key.strip()
+        if not key:
+            raise LLMError("The Gemini API key is empty.")
+
+        self._api_key = key
 
         try:
             self.client = genai.Client(
-                api_key=api_key,
+                api_key=key,
                 http_options=types.HttpOptions(timeout=60_000),
             )
         except Exception as exc:
@@ -38,7 +41,7 @@ class GeminiProvider(LLMProvider):
         system: str,
         prompt: str,
         schema: Type[T],
-        temperature: float = 0.0,
+        temperature: float = 1.0,
     ) -> T:
         try:
             response = self.client.models.generate_content(
@@ -48,17 +51,16 @@ class GeminiProvider(LLMProvider):
                     system_instruction=system,
                     temperature=temperature,
                     response_mime_type="application/json",
-                    response_schema=schema,
+                    response_json_schema=schema.model_json_schema(),
                 ),
             )
-
         except errors.APIError as exc:
             code = getattr(exc, "code", None)
 
             if code == 429:
                 raise LLMQuotaError(
                     "Gemini rate limit or quota reached. "
-                    "Check your quota and any suggested retry delay."
+                    "Check your quota before trying again."
                 ) from exc
 
             if code in {500, 502, 503, 504}:
@@ -66,46 +68,51 @@ class GeminiProvider(LLMProvider):
                     f"Gemini is temporarily unavailable (HTTP {code})."
                 ) from exc
 
+            detail = str(
+                getattr(exc, "message", None) or "No details provided."
+            ).replace(self._api_key, "[REDACTED]")
+
             raise LLMError(
-                f"Gemini rejected the request (HTTP {code}). "
-                "Check credentials, model access and request settings."
+                f"Gemini rejected the request (HTTP {code}): {detail}"
             ) from exc
 
         except httpx.TransportError as exc:
             raise LLMTemporaryError(
-                "Could not reach Gemini or the request timed out."
+                "Could not reach Gemini. Check your connection "
+                "and try again."
             ) from exc
 
         except Exception as exc:
             raise LLMError(
-                f"Gemini client failed ({type(exc).__name__})."
+                f"Gemini request failed ({type(exc).__name__})."
             ) from exc
 
-        if (
-            not response.candidates
-            or response.candidates[0].finish_reason
-            != types.FinishReason.STOP
-        ):
+        candidates = response.candidates or []
+        if not candidates:
             raise LLMError(
-                "Gemini did not complete the response normally. "
-                "The output may have been blocked or truncated."
+                "Gemini returned no response candidate. "
+                "The request may have been blocked."
             )
 
-        parsed = response.parsed
-
-        if isinstance(parsed, schema):
-            return parsed
+        finish_reason = candidates[0].finish_reason
+        if finish_reason != types.FinishReason.STOP:
+            raise LLMError(
+                "Gemini did not finish a complete response "
+                f"(finish reason: {finish_reason})."
+            )
 
         text = response.text
+        if not text or not text.strip():
+            raise LLMError("Gemini returned an empty response.")
 
-        if not text:
-            raise LLMError("Gemini returned no usable text.")
-
+        # Validate locally even though the API constrains the output.
+        # This also runs our custom Pydantic validators.
         try:
             return schema.model_validate_json(text)
         except ValidationError as exc:
             raise LLMError(
-                "Gemini output did not match the expected schema."
+                "Gemini returned JSON that did not match the "
+                f"expected schema ({exc.error_count()} validation errors)."
             ) from exc
 
     def close(self) -> None:
