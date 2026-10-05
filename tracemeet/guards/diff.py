@@ -39,6 +39,9 @@ def segment_edits(
         old_start, old_end = _bounds(old_tokens, i1, i2, len(original))
         new_start, new_end = _bounds(new_tokens, j1, j2, len(replacement))
 
+        old_text = original[old_start:old_end]
+        new_text = replacement[new_start:new_end]
+
         edits.append(
             {
                 "segment_id": segment_id,
@@ -47,8 +50,14 @@ def segment_edits(
                 "raw_end": old_end,
                 "candidate_start": new_start,
                 "candidate_end": new_end,
-                "original": original[old_start:old_end],
-                "replacement": replacement[new_start:new_end],
+                "original": old_text,
+                "replacement": new_text,
+                # An insertion/deletion may have an empty side.
+                # Every character on both sides must be whitespace.
+                "whitespace_only": all(
+                    character.isspace()
+                    for character in old_text + new_text
+                ),
             }
         )
 
@@ -73,6 +82,7 @@ def transcript_edits(raw: Transcript, candidate: Transcript) -> list[dict]:
 
 def edit_metrics(edits: list[dict]) -> dict[str, int]:
     def count_tokens(text: str) -> int:
+        # Non-whitespace tokens include punctuation.
         return sum(
             not token.group().isspace()
             for token in _tokens(text)
@@ -81,6 +91,9 @@ def edit_metrics(edits: list[dict]) -> dict[str, int]:
     return {
         "changed_segments": len({edit["segment_id"] for edit in edits}),
         "edit_spans": len(edits),
+        "whitespace_only_spans": sum(
+            edit["whitespace_only"] for edit in edits
+        ),
         "inserted_tokens": sum(
             count_tokens(edit["replacement"])
             for edit in edits if edit["operation"] == "insert"

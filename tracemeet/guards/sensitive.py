@@ -22,7 +22,7 @@ _NUMBER = re.compile(
 )
 
 NEGATIONS = {
-    "no", "not", "never", "without", "neither", "nor", "cannot",
+    "no", "not", "never", "without", "neither", "nor",
 }
 
 COMMITMENTS = {
@@ -54,7 +54,7 @@ UNITS = {
 }
 
 CONTRACTIONS = {
-    "can't": "cannot",
+    "can't": "can not",
     "won't": "will not",
     "shan't": "shall not",
 }
@@ -68,9 +68,13 @@ class GuardResult:
 
 
 def _normalise(text: str) -> str:
+    """Normalize known equivalents for comparison, not output."""
     text = text.casefold().replace("’", "'")
+
     for original, expanded in CONTRACTIONS.items():
         text = re.sub(rf"\b{re.escape(original)}\b", expanded, text)
+
+    text = re.sub(r"\bcannot\b", "can not", text)
 
     # don't -> do not; isn't -> is not; shouldn't -> should not
     return re.sub(r"\b([a-z]+)n't\b", r"\1 not", text)
@@ -81,7 +85,7 @@ def _words(text: str) -> list[str]:
 
 
 def _selected(words: list[str], vocabulary: set[str]) -> list[str]:
-    # Preserve order and repetitions rather than comparing sets.
+    # Preserve order and repeated markers.
     return [word for word in words if word in vocabulary]
 
 
@@ -132,21 +136,23 @@ def sensitive_flags(
     ):
         flags.append("protected_name_changed")
 
-    # A deliberately cautious heuristic, not a named-entity recognizer.
-    # It may also flag acronyms and ordinary sentence-initial words.
-    old_capitalized = [
-        word.casefold()
-        for word in _WORD.findall(original)
-        if word[0].isupper()
-    ]
-    new_capitalized = [
-        word.casefold()
-        for word in _WORD.findall(candidate)
-        if word[0].isupper()
-    ]
+    # This remains a cautious capitalization heuristic, not NER.
+    # Equivalent normalized wording should not trigger it solely
+    # because a contraction was expanded at the start of a sentence.
+    if old_words != new_words:
+        old_capitalized = [
+            word.casefold()
+            for word in _WORD.findall(original)
+            if word[0].isupper()
+        ]
+        new_capitalized = [
+            word.casefold()
+            for word in _WORD.findall(candidate)
+            if word[0].isupper()
+        ]
 
-    if old_capitalized != new_capitalized:
-        flags.append("capitalized_token_changed")
+        if old_capitalized != new_capitalized:
+            flags.append("capitalized_token_changed")
 
     return flags
 
@@ -186,6 +192,8 @@ def guard_refinement(
             output_segments.append(original)
             continue
 
+        # Always check the entire segment, even if an individual
+        # edit is labelled whitespace-only.
         flags = sensitive_flags(original.text, revised.text, names)
         status = (
             EditStatus.NEEDS_REVIEW if flags else EditStatus.ACCEPTED
@@ -220,7 +228,6 @@ def guard_refinement(
                 )
             )
 
-            # Keep exact offsets alongside the correction classification.
             edit.update(
                 status=status.value,
                 flags=list(flags),
