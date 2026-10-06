@@ -103,3 +103,33 @@ EVIDENCE
 - Owner and deadline evidence must support those specific fields.
 
 Return only the JSON matching the supplied response schema.
+
+CITATION BOUNDARIES
+
+Each evidence entry must quote one contiguous substring from exactly
+the segment named in that entry.
+
+A sentence may span multiple transcript segments. In that case, create
+a separate evidence entry for each segment. Never combine their text
+into one quote assigned to a single segment ID.
+
+Example input:
+seg_0041: "Alice will send"
+seg_0042: "the report by Monday."
+
+Correct evidence:
+[
+  {"segment_id": "seg_0041", "quote": "Alice will send"},
+  {"segment_id": "seg_0042", "quote": "the report by Monday."}
+]
+
+Incorrect evidence:
+[
+  {"segment_id": "seg_0041", "quote": "Alice will send the report by Monday."}
+]
+
+Copy spelling, capitalization and punctuation exactly. Do not repair
+or complete a quote. Prefer short supporting excerpts, while retaining
+negation, conditions and other wording necessary to interpret the claim.
+
+Treat the example above only as formatting guidance, never as meeting data.

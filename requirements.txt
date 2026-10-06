@@ -16,3 +16,5 @@ rapidfuzz>=3.9             # fuzzy matching of evidence quotes against transcrip
 
 # Interface
 streamlit>=1.40
+
+tiktoken
