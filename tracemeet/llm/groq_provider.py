@@ -15,6 +15,19 @@ class RequestBudgetError(LLMError):
     """The estimated request exceeds our configured token allowance."""
 
 
+class GeneratedOutputError(LLMError):
+    """Generated content failed schema validation; a bounded retry may help."""
+
+
+def is_generated_schema_failure(status: int, error: dict) -> bool:
+    """Recognize output-validation failures, not arbitrary bad requests."""
+    if status != 400:
+        return False
+
+    message = str(error.get("message", "")).casefold()
+    return "generated json does not match the expected schema" in message
+
+
 def strict_schema(schema: dict) -> dict:
     """Adapt a copy for strict structured output."""
     result = deepcopy(schema)
@@ -42,7 +55,7 @@ def strict_schema(schema: dict) -> dict:
             visit(node["items"])
 
         for keyword in ("anyOf", "oneOf", "allOf", "prefixItems"):
-            children = node.get(keyword)
+            children = node.get(keyword, [])
             if isinstance(children, list):
                 for child in children:
                     visit(child)
@@ -101,18 +114,15 @@ class GroqProvider(LLMProvider):
         prompt: str,
         schema: Type[T],
     ) -> dict:
-        wire_schema = strict_schema(schema.model_json_schema())
         schema_text = json.dumps(
-            wire_schema, ensure_ascii=False, separators=(",", ":")
+            strict_schema(schema.model_json_schema()),
+            ensure_ascii=False,
+            separators=(",", ":"),
         )
-
-        # Count ordinary text, including any special-token-looking input.
         text_tokens = sum(
             len(self._encoding.encode_ordinary(value))
             for value in (system, prompt, schema_text)
         )
-
-        # Allow for message wrappers and differences in server accounting.
         estimated_input = math.ceil(text_tokens * 1.10) + 256
         total_reserved = estimated_input + self.max_completion_tokens
 
@@ -136,8 +146,8 @@ class GroqProvider(LLMProvider):
     ) -> T:
         if model not in {"openai/gpt-oss-120b", "openai/gpt-oss-20b"}:
             raise LLMError(
-                "This provider currently supports the tested GPT-OSS "
-                "request format only."
+                "This provider currently supports the tested "
+                "GPT-OSS request format only."
             )
 
         budget = self.estimate_request(
@@ -175,18 +185,22 @@ class GroqProvider(LLMProvider):
         }
 
         started = perf_counter()
-
         try:
-            response = self.client.post(
-                "chat/completions", json=payload
-            )
+            response = self.client.post("chat/completions", json=payload)
         except httpx.TimeoutException as exc:
             elapsed = perf_counter() - started
+            self.last_call.update(
+                elapsed_seconds=elapsed, failure="timeout"
+            )
             raise LLMError(
                 f"Groq timed out after {elapsed:.1f}s. "
-                "This provider does not automatically retry yet."
+                "Earlier successful checkpoints remain saved."
             ) from exc
         except httpx.TransportError as exc:
+            self.last_call.update(
+                elapsed_seconds=perf_counter() - started,
+                failure=type(exc).__name__,
+            )
             raise LLMError(
                 f"Groq network failure ({type(exc).__name__})."
             ) from exc
@@ -199,23 +213,32 @@ class GroqProvider(LLMProvider):
         )
 
         if response.is_error:
+            error = {}
             try:
                 body = response.json()
-                error = body.get("error", {})
-                detail = (
-                    error.get("message", "No error details.")
-                    if isinstance(error, dict)
-                    else "Unexpected error response."
-                )
-            except (ValueError, AttributeError):
-                detail = "Non-JSON error response."
+                if isinstance(body, dict):
+                    value = body.get("error")
+                    if isinstance(value, dict):
+                        error = value
+            except ValueError:
+                pass
 
-            detail = str(detail).replace(self._key, "[REDACTED]")[:1000]
+            detail = str(
+                error.get("message", "No readable error details.")
+            ).replace(self._key, "[REDACTED]")[:1000]
+
+            self.last_call["error_message"] = detail
+
+            if is_generated_schema_failure(response.status_code, error):
+                self.last_call["failure"] = "generated_schema_failure"
+                raise GeneratedOutputError(
+                    f"Groq generated output failed schema validation: "
+                    f"{detail}"
+                )
+
             wait = response.headers.get("retry-after")
             wait_message = f" Retry-After: {wait}." if wait else ""
 
-            # Deliberately stop here. Our current router understands
-            # Google retry hints, not Groq's headers.
             raise LLMError(
                 f"Groq HTTP {response.status_code} after {elapsed:.1f}s: "
                 f"{detail}{wait_message} No automatic retry."
@@ -237,17 +260,20 @@ class GroqProvider(LLMProvider):
 
             if finish_reason != "stop":
                 raise LLMError(
-                    f"Groq generation was incomplete "
-                    f"({finish_reason}). Partial output was not accepted."
+                    f"Groq generation was incomplete ({finish_reason}). "
+                    "Partial output was not accepted."
                 )
 
-            return schema.model_validate_json(
-                message.get("content") or ""
-            )
+            content = message.get("content")
+            if not isinstance(content, str):
+                raise LLMError("Groq returned no text content.")
+
+            return schema.model_validate_json(content)
 
         except ValidationError as exc:
-            raise LLMError(
-                f"Groq output failed local schema validation "
+            self.last_call["failure"] = "local_schema_failure"
+            raise GeneratedOutputError(
+                "Groq output failed local schema validation "
                 f"({exc.error_count()} errors)."
             ) from exc
         except (KeyError, IndexError, TypeError, ValueError) as exc:

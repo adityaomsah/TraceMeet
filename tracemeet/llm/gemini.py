@@ -17,7 +17,7 @@ from tracemeet.llm.base import (
 class GeminiProvider(LLMProvider):
     name = "gemini"
 
-    def __init__(self, api_key: str):
+    def __init__(self, api_key: str, timeout_s: float = 180.0):
         key = api_key.strip()
         if not key:
             raise LLMError("The Gemini API key is empty.")
@@ -28,7 +28,7 @@ class GeminiProvider(LLMProvider):
             self.client = genai.Client(
                 api_key=key,
                 http_options=types.HttpOptions(
-                    timeout=60_000,
+                    timeout=int(timeout_s * 1000),
                     retry_options=types.HttpRetryOptions(attempts=1),
                 ),
             )
@@ -66,7 +66,7 @@ class GeminiProvider(LLMProvider):
                     "If retries fail, check the project's quota."
                 ) from exc
 
-            if code in {408, 500, 502, 503, 504}:
+            if code in {408, 499, 500, 502, 503, 504}:
                 raise LLMTemporaryError(
                     f"Gemini is temporarily unavailable (HTTP {code})."
                 ) from exc
