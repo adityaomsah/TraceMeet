@@ -1,6 +1,8 @@
 import argparse
 import json
 import os
+import shutil
+from uuid import uuid4
 from datetime import datetime, timezone
 from hashlib import sha256
 from pathlib import Path
@@ -20,7 +22,9 @@ from tracemeet.stages.minutes_finalize import (
     ReviewedOutcomes,
     ReviewedTasks,
     finalize_record,
-    prepare_review,
+    plan_review_jobs,
+    review_ids,
+    candidate_catalog,
 )
 from tracemeet.stages.minutes_map import save_json_atomic
 from tracemeet.stages.minutes_reconcile import (
@@ -118,30 +122,23 @@ def main() -> int:
         )
         model = "openai/gpt-oss-120b"
 
-        budgets = []
+        plans = {}
         for kind, system, schema in (
             ("tasks", TASK_SYSTEM, ReviewedTasks),
             ("outcomes", OUTCOME_SYSTEM, ReviewedOutcomes),
         ):
-            job = prepare_review(kind, records, transcript)
-            budget = provider.estimate_request(
-                system=system, prompt=job.prompt, schema=schema
-            )
-            budgets.append(budget)
-            print(f"\n{kind}:")
-            print(json.dumps(budget, indent=2))
+            plans[kind] = plan_review_jobs(kind, records, transcript, provider)
+            print(f"\n{kind}: {len(candidate_catalog(kind, records))} candidates; "
+                  f"{len(plans[kind])} planned batches")
+            for index, job in enumerate(plans[kind], 1):
+                budget = provider.estimate_request(system=system, prompt=job.prompt, schema=schema)
+                print(f"  Batch {index}: {len(review_ids(job))} candidates; "
+                      f"{budget['estimated_total_tokens']:,} estimated tokens including output reserve")
 
         if args.check_only:
             print("\nNo inference API calls made.")
-            print(
-                "Overview budget is checked after reviewed outcomes exist."
-            )
+            print("Overview batching is budget-checked after reviewed outcomes exist.")
             return 0
-
-        if not all(budget["fits"] for budget in budgets):
-            raise FinalizationError(
-                "A review exceeds budget. No inference calls made."
-            )
 
         runner = FinalizationRunner(
             provider,
@@ -154,6 +151,47 @@ def main() -> int:
         )
         candidate = finalize_record(records, transcript, runner)
         checked = verify_evidence(candidate, transcript)
+
+        # Preserve previous outputs before replacing them, including the last
+        # accuracy baseline. No earlier transcription/reconciliation is changed.
+        names = (
+            "candidate_meeting_record.json", "minutes_meta.json",
+            "citation_checked_meeting_record.json", "evidence_report.json",
+            "finalization_report.json",
+        )
+        existing = [args.run_dir / name for name in names if (args.run_dir / name).is_file()]
+        if existing:
+            archive = args.run_dir / "finalization_history" / (
+                datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "_" + uuid4().hex[:8]
+            )
+            archive.mkdir(parents=True, exist_ok=False)
+            for source in existing:
+                shutil.copy2(source, archive / source.name)
+            print(f"Previous outputs preserved: {archive}")
+
+        finalization_report = {
+            "version": FINALIZE_VERSION,
+            "source_sha256": source_hash,
+            "reconciled_records_file_sha256": records_hash,
+            "semantic_support_checked": False,
+            "candidate_catalogs": {
+                kind: candidate_catalog(kind, records) for kind in plans
+            },
+            "review_batches": {
+                kind: [{"candidate_ids": review_ids(job),
+                        "allowed_segment_ids": list(job.allowed_ids)} for job in jobs]
+                for kind, jobs in plans.items()
+            },
+            "validated_responses": runner.audit,
+            "limitations": [
+                "Coverage means every supplied candidate has a disposition, not that extraction found every real task.",
+                "Removal reasons, statuses and assignments require semantic inspection.",
+                "Review uses source excerpts; omitted context can contain answers or cancellations.",
+                "Whole groups remain together, but semantic reconciliation across review batches is not guaranteed.",
+                "Overview preserves group boundaries and topic accounting; it summarizes candidate topics, not full source speech.",
+                "Summary is uncited. More than one overview batch produces concatenated batch summaries.",
+            ],
+        }
 
         candidate_text = candidate.model_dump_json(indent=2)
         write_text_atomic(
@@ -184,6 +222,8 @@ def main() -> int:
             checked.report,
         )
 
+        save_json_atomic(args.run_dir / "finalization_report.json", finalization_report)
+
         print("\nFinal candidate counts:")
         for field in (
             "minutes", "decisions", "action_items", "open_questions"
@@ -196,6 +236,9 @@ def main() -> int:
         print("Semantic accuracy still requires inspection.")
         return 0
 
+    except KeyboardInterrupt:
+        print("Stopped; validated checkpoints remain saved.")
+        return 130
     except (
         ConfigError, LLMError, FinalizationError, ReconciliationError,
         OSError, ValueError, KeyError, TypeError,

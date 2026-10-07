@@ -1,18 +1,39 @@
 import difflib
 import json
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Optional
 
 import pandas as pd
 import streamlit as st
 
-from tracemeet.schemas import Transcript
+from tracemeet.export.bundle import ExportBundle, build_exports
+from tracemeet.schemas import MeetingRecord, Transcript
 
 RECORD_FILES = ("citation_checked_meeting_record.json", "candidate_meeting_record.json")
 VIDEO_SUFFIXES = {".mp4", ".mov", ".mkv", ".webm"}
 UNSPECIFIED = "Unspecified"
 MAX_EMBED_BYTES = 200 * 1024 * 1024
+MIME_TYPES = {
+    ".json": "application/json",
+    ".md": "text/markdown",
+    ".csv": "text/csv",
+    ".txt": "text/plain",
+}
 
+
+@dataclass
+class RunData:
+    raw: Optional[Transcript]
+    refined: Optional[Transcript]
+    record: Optional[dict]
+    bundle: Optional[ExportBundle]
+    guard_report: Optional[dict]
+    media: Optional[Path]
+    notes: list[str] = field(default_factory=list)
+
+
+# ---------- small helpers ----------
 
 def fmt_time(seconds: float) -> str:
     m, s = divmod(int(seconds), 60)
@@ -20,7 +41,7 @@ def fmt_time(seconds: float) -> str:
     return f"{h:d}:{m:02d}:{s:02d}" if h else f"{m:02d}:{s:02d}"
 
 
-def _esc(text: str) -> str:
+def _esc(text: Any) -> str:
     return str(text).replace("$", "\\$")
 
 
@@ -101,6 +122,68 @@ def segment_start(transcript: Optional[Transcript], seg_id: str) -> Optional[flo
     return seg.start if seg is not None else None
 
 
+def guard_rows(report: dict) -> list[dict]:
+    rows = []
+    for item in report.get("corrections") or []:
+        if not isinstance(item, dict):
+            continue
+        rows.append(
+            {
+                "Segment": item.get("segment_id", ""),
+                "Original": item.get("original", ""),
+                "Replacement": item.get("replacement", ""),
+                "Status": item.get("status", ""),
+                "Flags": ", ".join(str(f) for f in item.get("flags") or []),
+            }
+        )
+    return rows
+
+
+# ---------- loading ----------
+
+def load_run(run_dir: Path) -> RunData:
+    notes: list[str] = []
+    raw = load_transcript(run_dir / "raw_transcript.json")
+    refined = load_transcript(run_dir / "refined_transcript.json")
+    if raw is None:
+        notes.append("The raw transcript could not be loaded.")
+    if refined is None:
+        notes.append("The refined transcript could not be loaded.")
+
+    report = read_json(run_dir / "guard_report.json")
+    if not isinstance(report, dict):
+        report = None
+
+    record_dict: Optional[dict] = None
+    bundle: Optional[ExportBundle] = None
+    record_path = find_record_file(run_dir)
+    if record_path is None:
+        notes.append("This run has no meeting record yet.")
+    else:
+        data = read_json(record_path)
+        if not isinstance(data, dict):
+            notes.append("The meeting record could not be read.")
+        else:
+            record_dict = data
+            if raw is not None and refined is not None:
+                try:
+                    bundle = build_exports(
+                        MeetingRecord.model_validate(data),
+                        raw_transcript=raw,
+                        refined_transcript=refined,
+                    )
+                    record_dict = bundle.record.model_dump(mode="json")
+                except ValueError as exc:
+                    notes.append(
+                        "Exports are unavailable and the record below is unverified: "
+                        f"it did not pass validation ({type(exc).__name__})."
+                    )
+
+    return RunData(raw, refined, record_dict, bundle, report, find_media(run_dir), notes)
+
+
+# ---------- rendering ----------
+
 def _render_player(media: Optional[Path]) -> None:
     st.markdown("**Source recording**")
     if media is None:
@@ -132,6 +215,11 @@ def _render_evidence(item: dict, refined: Optional[Transcript], prefix: str) -> 
 
 
 def _render_record(record: dict, refined: Optional[Transcript]) -> None:
+    st.caption(
+        "Citation matching checks that quoted text exists in the cited segment. "
+        "It does not prove the claim follows from it, and the overall summary is uncited."
+    )
+
     st.subheader("Summary")
     st.write(_esc(record.get("summary") or "No summary."))
 
@@ -197,69 +285,77 @@ def _render_transcripts(raw: Optional[Transcript], refined: Optional[Transcript]
     )
 
 
-def _render_corrections(run_dir: Path, raw: Optional[Transcript], refined: Optional[Transcript]) -> None:
-    if raw is None or refined is None:
+def _render_corrections(run: RunData) -> None:
+    if run.raw is None or run.refined is None:
         st.warning("Both transcripts are needed to show corrections.")
         return
-    rows = changed_segments(raw, refined)
-    st.write(f"{len(rows)} of {len(raw.segments)} segments changed.")
-    st.caption(
-        "Struck-through words were removed and **bold** words were added. "
-        "Edits held for review keep the raw wording, so they do not appear here. "
-        "See the guard report below."
-    )
+
+    rows = changed_segments(run.raw, run.refined)
+    report = run.guard_report or {}
+    left, middle, right = st.columns(3)
+    left.metric("Segments changed", len(rows))
+    middle.metric("Applied (guard report)", report.get("changed_segments_applied", "n/a"))
+    right.metric("Held for review", report.get("segments_needing_review", "n/a"))
+
+    st.subheader("Applied changes")
+    st.caption("Struck-through words were removed and **bold** words were added.")
     for seg_id, start, raw_text, refined_text in rows:
         with st.container(border=True):
             st.caption(f"{seg_id} · {fmt_time(start)}")
             st.markdown(diff_markdown(raw_text, refined_text))
-    report = read_json(run_dir / "guard_report.json")
-    if report is not None:
-        with st.expander("Guard report (raw JSON)"):
-            st.json(report)
+
+    st.subheader("Guard decisions")
+    st.caption(
+        "Edits marked needs_review were not applied: the raw wording was kept for the whole segment."
+    )
+    table = guard_rows(report)
+    if table:
+        st.dataframe(pd.DataFrame(table), width="stretch", hide_index=True)
+    else:
+        st.caption("No guard report was found for this run.")
 
 
-def _render_downloads(run_dir: Path) -> None:
-    found: list[Path] = []
-    for base in (run_dir, run_dir / "exports"):
-        if base.is_dir():
-            for pattern in ("*.md", "*.csv", "*.zip"):
-                found.extend(sorted(base.glob(pattern)))
-    record_file = find_record_file(run_dir)
-    if record_file is not None:
-        found.append(record_file)
-    if not found:
-        st.info("No export files were found in this run yet.")
+def _render_downloads(bundle: Optional[ExportBundle]) -> None:
+    if bundle is None:
+        st.info("Downloads are unavailable until the run has a valid meeting record.")
         return
-    for path in found:
+    st.download_button(
+        "Download everything (ZIP)",
+        data=bundle.zip_bytes,
+        file_name="tracemeet_exports.zip",
+        mime="application/zip",
+        type="primary",
+        key="dl_zip",
+    )
+    for name, content in bundle.files.items():
         st.download_button(
-            f"Download {path.name}",
-            data=path.read_bytes(),
-            file_name=path.name,
-            key=f"download_{path}",
+            f"Download {name}",
+            data=content,
+            file_name=name,
+            mime=MIME_TYPES.get(Path(name).suffix, "application/octet-stream"),
+            key=f"dl_{name}",
         )
+    st.caption("Every file is generated from the same citation-checked record shown here.")
 
 
 def render_results(run_dir: Path) -> None:
-    raw = load_transcript(run_dir / "raw_transcript.json")
-    refined = load_transcript(run_dir / "refined_transcript.json")
-    record_file = find_record_file(run_dir)
-    record = read_json(record_file) if record_file else None
-    media = find_media(run_dir)
+    run = load_run(run_dir)
 
     with st.sidebar:
-        _render_player(media)
+        _render_player(run.media)
+
+    for note in run.notes:
+        st.warning(note)
 
     tab_record, tab_transcripts, tab_corrections, tab_downloads = st.tabs(
         ["Meeting record", "Transcripts", "Corrections", "Downloads"]
     )
     with tab_record:
-        if isinstance(record, dict):
-            _render_record(record, refined)
-        else:
-            st.info("This run has no meeting record yet.")
+        if run.record is not None:
+            _render_record(run.record, run.refined)
     with tab_transcripts:
-        _render_transcripts(raw, refined)
+        _render_transcripts(run.raw, run.refined)
     with tab_corrections:
-        _render_corrections(run_dir, raw, refined)
+        _render_corrections(run)
     with tab_downloads:
-        _render_downloads(run_dir)
+        _render_downloads(run.bundle)
