@@ -70,6 +70,23 @@ def load_config(path: str | Path = DEFAULT_CONFIG) -> dict:
         raise ConfigError("llm.temperature must be a number between 0 and 2.")
 
     cfg["llm"]["temperature"] = float(temperature)
+
+    cfg["llm"].setdefault("refine_provider", "gemini")
+    cfg["llm"].setdefault("minutes_provider", "groq" if cfg["llm"]["minutes_model"].startswith("openai/") else "gemini")
+    if cfg["llm"]["refine_provider"] != "gemini" or cfg["llm"]["minutes_provider"] not in {"groq", "gemini"}:
+        raise ConfigError("Unsupported configured LLM provider.")
+    if cfg["llm"]["minutes_provider"] == "groq" and cfg["llm"]["minutes_model"] not in {"openai/gpt-oss-120b", "openai/gpt-oss-20b"}:
+        raise ConfigError("Set llm.minutes_model to openai/gpt-oss-120b or openai/gpt-oss-20b.")
+    groq = cfg["llm"].setdefault("groq", {})
+    if not isinstance(groq, dict):
+        raise ConfigError("llm.groq must be a mapping.")
+    for name, default in (("request_budget", 7400), ("max_completion_tokens", 3072),
+                          ("group_completion_tokens", 2048), ("timeout_s", 120)):
+        value = groq.setdefault(name, default)
+        if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+            raise ConfigError(f"llm.groq.{name} must be a positive integer.")
+    if max(groq["max_completion_tokens"], groq["group_completion_tokens"]) >= groq["request_budget"]:
+        raise ConfigError("Groq completion allowances must be smaller than the request budget.")
     return cfg
 
 
@@ -82,4 +99,10 @@ def get_api_key() -> str:
             "Copy .env.example to .env and add your key."
         )
 
+    return key
+
+def get_groq_api_key() -> str:
+    key = os.getenv("GROQ_API_KEY", "").strip()
+    if not key:
+        raise ConfigError("GROQ_API_KEY is not set. Add it to your local .env file.")
     return key

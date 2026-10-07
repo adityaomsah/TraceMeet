@@ -4,6 +4,13 @@ stt:
   compute_type: int8
 
 llm:
+  refine_provider: gemini
   refine_model: gemini-3.5-flash-lite
-  minutes_model: gemini-3.6-flash
-  temperature: 1.0
+  temperature: 1.0  # refinement; Groq documentation uses 0.0
+  minutes_provider: groq
+  minutes_model: openai/gpt-oss-120b
+  groq:
+    request_budget: 7400
+    max_completion_tokens: 3072
+    group_completion_tokens: 2048
+    timeout_s: 120

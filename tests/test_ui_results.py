@@ -1,3 +1,6 @@
+import json
+from hashlib import sha256
+
 from tracemeet.schemas import Decision, DecisionStatus, Evidence, MeetingRecord, Segment, Transcript
 from tracemeet.ui.results import (
     changed_segments, diff_markdown, evidence_list, fmt_time,
@@ -35,7 +38,18 @@ def write_run(tmp_path, record_json=None):
             open_questions=[],
         )
         record_json = record.model_dump_json()
-    (run / "citation_checked_meeting_record.json").write_text(record_json, encoding="utf-8")
+    (run / "candidate_refined_transcript.json").write_text(transcript.model_dump_json(), encoding="utf-8")
+    (run / "candidate_meeting_record.json").write_text(record_json, encoding="utf-8")
+    digest = lambda name: sha256((run / name).read_bytes()).hexdigest()
+    (run / "minutes_meta.json").write_text(json.dumps({
+        "source_sha256": digest("refined_transcript.json"),
+        "record_sha256": digest("candidate_meeting_record.json"),
+    }), encoding="utf-8")
+    (run / "guard_report.json").write_text(json.dumps({
+        "raw_sha256": digest("raw_transcript.json"),
+        "candidate_sha256": digest("candidate_refined_transcript.json"),
+        "refined_sha256": digest("refined_transcript.json"),
+    }), encoding="utf-8")
     return run
 
 
@@ -72,7 +86,7 @@ def test_segment_start_lookup():
     assert segment_start(None, "seg_0001") is None
 
 
-def test_list_runs_only_returns_runs_with_a_raw_transcript(tmp_path):
+def test_list_runs_excludes_empty_directories(tmp_path):
     (tmp_path / "run_a").mkdir()
     (tmp_path / "run_a" / "raw_transcript.json").write_text("{}")
     (tmp_path / "run_b").mkdir()
@@ -91,7 +105,7 @@ def test_guard_rows_flattens_corrections():
     assert guard_rows({}) == []
 
 
-def test_load_run_builds_exports_from_the_checked_record(tmp_path):
+def test_load_run_checks_candidate_and_builds_exports(tmp_path):
     data = load_run(write_run(tmp_path))
     assert data.bundle is not None
     assert "meeting_record.md" in data.bundle.files
@@ -105,11 +119,11 @@ def test_load_run_without_a_record_says_so(tmp_path):
     (run / "raw_transcript.json").write_text(make("hello there").model_dump_json(), encoding="utf-8")
     data = load_run(run)
     assert data.bundle is None
-    assert any("no meeting record" in note for note in data.notes)
+    assert any("no candidate meeting record" in note.lower() for note in data.notes)
 
 
-def test_invalid_record_is_shown_but_exports_are_unavailable(tmp_path):
+def test_invalid_record_is_withheld_and_exports_are_unavailable(tmp_path):
     data = load_run(write_run(tmp_path, record_json='{"summary": 1}'))
     assert data.bundle is None
-    assert data.record == {"summary": 1}
-    assert any("Exports are unavailable" in note for note in data.notes)
+    assert data.record is None
+    assert any("exports are unavailable" in note.lower() for note in data.notes)

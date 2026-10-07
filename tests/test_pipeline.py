@@ -8,6 +8,15 @@ from tracemeet.schemas import MeetingRecord, Segment, Transcript
 def test_minutes_failure_retains_completed_stages_and_retry_reuses_them(
     tmp_path, monkeypatch
 ):
+    # Exercise real fingerprint logic against an isolated dependency tree.
+    root = tmp_path / "source"
+    monkeypatch.setattr(pipeline, "ROOT", root)
+    for paths in pipeline.STAGE_FILES.values():
+        for name in paths:
+            path = root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("test dependency", encoding="utf-8")
+
     media = tmp_path / "input.wav"
     media.write_bytes(b"fake audio for an isolated orchestration test")
 
@@ -33,25 +42,33 @@ def test_minutes_failure_retains_completed_stages_and_retry_reuses_them(
             return transcript
 
     class FakeProvider:
-        name = "fake"
+        def __init__(self, name):
+            self.name = name
+
+    refiner = FakeProvider("gemini")
+    documenter = FakeProvider("groq")
 
     def fake_refine(*args, **kwargs):
+        assert args[1] is refiner
         calls["refine"] += 1
         return transcript
 
     def fake_minutes(*args, **kwargs):
+        assert kwargs["provider"] is documenter
         calls["minutes"] += 1
         if calls["minutes"] == 1:
             raise LLMTemporaryError("simulated unavailable service")
-        return record
+        return record, {"path": "short"}
 
     monkeypatch.setattr(pipeline, "validate_media", lambda path: None)
     monkeypatch.setattr(pipeline, "refine_transcript", fake_refine)
-    monkeypatch.setattr(pipeline, "generate_minutes", fake_minutes)
+    monkeypatch.setattr(pipeline, "generate_documentation", fake_minutes)
 
     cfg = {
         "stt": {"model": "fake", "device": "cpu", "compute_type": "int8"},
         "llm": {
+            "refine_provider": "gemini",
+            "minutes_provider": "groq",
             "refine_model": "fake-refiner",
             "minutes_model": "fake-minutes",
             "temperature": 1.0,
@@ -60,7 +77,8 @@ def test_minutes_failure_retains_completed_stages_and_retry_reuses_them(
     run = pipeline.create_run(tmp_path, media, "input.wav", cfg, "", [])
 
     kwargs = {
-        "provider": FakeProvider(),
+        "refine_provider_factory": lambda: refiner,
+        "minutes_provider_factory": lambda grouping: documenter,
         "engine_factory": FakeEngine,
         "on_status": lambda message: None,
         "on_progress": lambda value: None,
@@ -76,6 +94,8 @@ def test_minutes_failure_retains_completed_stages_and_retry_reuses_them(
     assert (tmp_path / "refined_transcript.json").exists()
     assert not (tmp_path / "citation_checked_meeting_record.json").exists()
 
+    # Reconstruct from disk as after a browser/server restart.
+    run = pipeline.recover_run(tmp_path)
     pipeline.continue_run(run, **kwargs)
 
     assert calls == {"stt": 1, "refine": 1, "minutes": 2}
