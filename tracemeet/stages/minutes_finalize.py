@@ -80,7 +80,11 @@ Every input topic ID must appear exactly once: either in one output minute
 or in omitted_topics with a specific reason. Omit only filler, duplication
 already covered by a cited retained topic, or claims contradicted by review.
 Retain meaningful organizational announcements, policies and timelines.
-There is no target topic count. Preserve distinct work within a group.
+Preserve distinct work within a group. Keep each topic summary within about
+60 words, this batch's overview within about 90 words, and omission reasons
+within about 20 words. Prefer concise wording, never omit required fields.
+The overall summary must cover ONLY the topic groups in this batch; reviewed
+outcomes from other groups are context, not additional summary subjects.
 Return summary, minutes, omitted_topics. Summary is an uncited overview.
 Do not invent commitments, names, dates or answers. This condensation does not
 independently verify candidate summaries against the entire recording.
@@ -471,8 +475,21 @@ def plan_review_jobs(kind, records, transcript, provider):
     return jobs
 
 
+def _overview_topic_capacity(provider):
+    """Conservative output planning heuristic, not an output-length guarantee.
+
+    Reserve 768 tokens for overview prose, JSON framing and model overhead,
+    then allow 128 tokens per source topic. Whole discussion groups stay intact.
+    """
+    allowance = getattr(provider, "max_completion_tokens", 3072)
+    if not isinstance(allowance, int) or allowance <= 768:
+        raise FinalizationError("Overview needs more than 768 reserved completion tokens.")
+    return max(1, (allowance - 768) // 128)
+
+
 def _overview_batches(records, tasks, outcomes, provider):
-    """Pack whole groups; overview IDs remain stable in the returned batches."""
+    """Pack whole groups using BOTH input budget and output workload."""
+    topic_capacity = _overview_topic_capacity(provider)
     all_topics, all_groups = topic_catalog(records)
     base = json.loads(make_overview_prompt(records, tasks, outcomes))
     grouped = {}
@@ -485,7 +502,10 @@ def _overview_batches(records, tasks, outcomes, provider):
         payload = {**base, "topics": rows}
         prompt = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
         budget = provider.estimate_request(system=OVERVIEW_SYSTEM, prompt=prompt, schema=OverviewDraft)
-        return prompt, budget["estimated_total_tokens"] <= budget["request_budget"] - RETRY_HEADROOM
+        return prompt, (
+            len(rows) <= topic_capacity
+            and budget["estimated_total_tokens"] <= budget["request_budget"] - RETRY_HEADROOM
+        )
 
     batches, pending = [], []
     for rows in grouped.values():
@@ -496,7 +516,12 @@ def _overview_batches(records, tasks, outcomes, provider):
         if pending:
             batches.append(pending)
         if not build(rows)[1]:
-            raise FinalizationError("A complete overview group exceeds budget; no input truncated.")
+            raise FinalizationError(
+                f"A complete overview group exceeds input/output planning limits "
+                f"({len(rows)} source topics; capacity {topic_capacity}). "
+                "No input truncated. Split the upstream discussion group or "
+                "configure a verified larger allowance."
+            )
         pending = rows
     if pending:
         batches.append(pending)
@@ -537,8 +562,10 @@ def finalize_record(records, transcript, runner, on_status=print):
     outcomes = GroupDraft(minutes=[], decisions=[DecisionDraft(**compact_item(x)) for x in decisions],
                           action_items=[], open_questions=[QuestionDraft(**compact_item(x)) for x in questions])
     batches = _overview_batches(records, tasks, outcomes, runner.provider)
+    on_status(f"Overview: {len(batches)} batches planned for input and output limits.")
     minutes, summaries = [], []
     for index, (prompt, topics, groups) in enumerate(batches, 1):
+        on_status(f"Overview batch {index}/{len(batches)}: {len(topics)} source topics.")
         def validate_overview(response):
             return response.summary, restore_overview(response, topics, groups)
         summary, restored = runner.call(f"overview_{index:03d}", OVERVIEW_SYSTEM,

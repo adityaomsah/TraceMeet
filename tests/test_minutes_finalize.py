@@ -254,3 +254,41 @@ def test_finalize_with_fake_provider_preserves_assignment_and_topic(tmp_path,mon
 def test_review_cannot_attach_only_unrelated_source():
     with pytest.raises(FinalizationError, match='anchor each candidate'):
         check([review(evidence=['s3'])])
+
+
+
+def test_overview_splits_for_output_even_when_input_fits():
+    from tracemeet.stages.minutes_finalize import _overview_batches, topic_catalog
+    transcript, record = fixture_data()
+    records = []
+    for count in [10, 8, 6]:
+        group = deepcopy(record)
+        group.minutes = [deepcopy(record.minutes[0]) for _ in range(count)]
+        records.append(group)
+    outcomes = GroupRecord(minutes=[], decisions=[], action_items=[], open_questions=[])
+    batches = _overview_batches(records, [], outcomes, FakeProvider())
+    assert [len(topics) for _, topics, _ in batches] == [18, 6]
+    topics, groups = topic_catalog(records)
+    assert set().union(*(set(t) for _, t, _ in batches)) == set(topics)
+    # Every group's topics stay in one batch.
+    for group_id in set(groups.values()):
+        assert sum(group_id in set(g.values()) for _, _, g in batches) == 1
+
+
+def test_overview_oversize_output_group_stops_without_truncation():
+    from tracemeet.stages.minutes_finalize import _overview_batches
+    _, record = fixture_data()
+    record.minutes = [deepcopy(record.minutes[0]) for _ in range(19)]
+    outcomes = GroupRecord(minutes=[], decisions=[], action_items=[], open_questions=[])
+    with pytest.raises(FinalizationError, match='input/output planning limits'):
+        _overview_batches([record], [], outcomes, FakeProvider())
+
+
+def test_overview_capacity_tracks_completion_allowance():
+    from tracemeet.stages.minutes_finalize import _overview_topic_capacity
+    provider = FakeProvider()
+    provider.max_completion_tokens = 2048
+    assert _overview_topic_capacity(provider) == 10
+    provider.max_completion_tokens = 768
+    with pytest.raises(FinalizationError):
+        _overview_topic_capacity(provider)
