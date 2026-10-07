@@ -277,11 +277,32 @@ class GroqProvider(LLMProvider):
             return schema.model_validate_json(content)
 
         except ValidationError as exc:
-            self.last_call["failure"] = "local_schema_failure"
+            issues = [
+                {
+                    "path": ".".join(str(part) for part in item["loc"]),
+                    "type": item["type"],
+                    "message": item["msg"],
+                }
+                for item in exc.errors(
+                    include_url=False,
+                    include_context=False,
+                    include_input=False,
+                )
+            ]
+
+            self.last_call.update(
+                failure="local_schema_failure",
+                validation_errors=issues,
+            )
+
+            detail = json.dumps(
+                issues, ensure_ascii=False
+            ).replace(self._key, "[REDACTED]")
+
             raise GeneratedOutputError(
-                "Groq output failed local schema validation "
-                f"({exc.error_count()} errors)."
+                f"Groq output failed local schema validation: {detail}"
             ) from exc
+        
         except (KeyError, IndexError, TypeError, ValueError) as exc:
             raise LLMError(
                 f"Unexpected Groq response ({type(exc).__name__})."
