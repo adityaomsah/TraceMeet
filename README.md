@@ -23,14 +23,11 @@
 
 ## What is TraceMeet?
 
-TraceMeet turns recorded English meetings into readable transcripts and structured
-meeting records. Upload a recording, follow the processing stages, inspect
-corrections and minutes, then click a citation to hear the source passage.
+### TraceMeet: Verifiable Meeting Intelligence
 
-The workflow retains **raw text, model proposals and guarded wording** so a
-reviewer can see what changed before relying on a decision, task or deadline.
-Results are readable directly in the app; JSON is available for integrations,
-Markdown for portable notes, and CSV for spreadsheet workflows.
+* **Evidence-Backed:** Every decision and task is linked to an exact audio timestamp.
+* **Zero Hallucinations:** Strict guards block invented deadlines, unassigned tasks, and altered numbers.
+* **Resilient Pipeline:** Map-reduce architecture handles massive, hour-plus meetings without API timeouts.
 
 ## Try it locally
 
@@ -50,6 +47,7 @@ still require your own configured API keys.
 - [🎙️ TraceMeet](#️-tracemeet)
     - [Meeting records you can inspect and trace to the recording.](#meeting-records-you-can-inspect-and-trace-to-the-recording)
   - [What is TraceMeet?](#what-is-tracemeet)
+    - [TraceMeet: Verifiable Meeting Intelligence](#tracemeet-verifiable-meeting-intelligence)
   - [Try it locally](#try-it-locally)
   - [Why TraceMeet](#why-tracemeet)
   - [Architecture](#architecture)
