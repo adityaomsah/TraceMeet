@@ -20,12 +20,18 @@ class GeneratedOutputError(LLMError):
 
 
 def is_generated_schema_failure(status: int, error: dict) -> bool:
-    """Recognize output-validation failures, not arbitrary bad requests."""
+    """Recognize specific generated-output failures, not every HTTP 400."""
     if status != 400:
         return False
 
-    message = str(error.get("message", "")).casefold()
-    return "generated json does not match the expected schema" in message
+    message = str(error.get("message", "")).strip().casefold()
+
+    return (
+        message.startswith(
+            "generated json does not match the expected schema"
+        )
+        or message.startswith("failed to generate json.")
+    )
 
 
 def strict_schema(schema: dict) -> dict:

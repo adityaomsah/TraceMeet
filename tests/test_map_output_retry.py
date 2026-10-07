@@ -169,3 +169,20 @@ def test_ordinary_provider_error_is_not_retried(setup_run):
         run(provider)
 
     assert len(provider.calls) == 1
+
+
+def test_failed_json_generation_is_recognized():
+    assert is_generated_schema_failure(
+        400,
+        {
+            "message": (
+                "Failed to generate JSON. Please adjust your prompt. "
+                "See 'failed_generation' for more details."
+            )
+        },
+    )
+
+    assert not is_generated_schema_failure(
+        400,
+        {"message": "Invalid JSON schema supplied in response_format."},
+    )
