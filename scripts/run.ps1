@@ -1,18 +1,12 @@
-# Mention in the README that if PowerShell blocks the script, the command is powershell -ExecutionPolicy Bypass -File scripts\run.ps1.
-
+# Launch after following README installation. Does not reinstall packages.
 $ErrorActionPreference = "Stop"
 Set-Location (Split-Path -Parent $PSScriptRoot)
-
-if (-not (Test-Path ".venv")) {
-    Write-Host "Creating virtual environment..."
-    python -m venv .venv
+$TraceMeetPython = Join-Path (Get-Location) ".venv\Scripts\python.exe"
+if (-not (Test-Path $TraceMeetPython)) {
+    throw "Virtual environment missing. Follow the README setup before running this launcher."
 }
-
-& .\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt --quiet
-
 if (-not (Test-Path ".env")) {
-    Write-Warning "No .env file found. Copy .env.example to .env and add your API key(s)."
+    Write-Warning "No .env file found. New model stages require GEMINI_API_KEY and GROQ_API_KEY; environment variables may also provide them."
 }
-
-streamlit run app.py
+& $TraceMeetPython -m streamlit run app.py
+exit $LASTEXITCODE
