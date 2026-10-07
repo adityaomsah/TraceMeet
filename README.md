@@ -55,6 +55,7 @@ still require your own configured API keys.
   - [Architecture](#architecture)
   - [Three models, three roles](#three-models-three-roles)
   - [Technology stack](#technology-stack)
+  - [Repository layout](#repository-layout)
   - [Quick start: Windows PowerShell](#quick-start-windows-powershell)
     - [1. Prerequisites](#1-prerequisites)
     - [2. Clone and install](#2-clone-and-install)
@@ -63,13 +64,12 @@ still require your own configured API keys.
     - [5. Launch](#5-launch)
   - [Using TraceMeet](#using-tracemeet)
   - [Outputs and samples](#outputs-and-samples)
-  - [Repository layout](#repository-layout)
   - [Tests and validation status](#tests-and-validation-status)
   - [Troubleshooting](#troubleshooting)
   - [Privacy and limitations](#privacy-and-limitations)
   - [Roadmap](#roadmap)
   - [Author and acknowledgments](#author-and-acknowledgments)
-  - [📄 License](#-license)
+  - [License](#license)
 
 </details>
 
@@ -97,6 +97,8 @@ checks and citations linked to source audio.
 segment. They do not verify that a claim follows from the quote. The summary is
 uncited. Flagged refinement proposals retain the original wording; interactive
 accept/reject/edit approval is not implemented.
+
+---
 
 ## Architecture
 
@@ -151,6 +153,94 @@ request size, not a fixed number of recording minutes.
 | Budgeting | tiktoken | Estimate request size before inference |
 | Verification | pytest; jiwer available for evaluation | Regression tests and planned WER scoring |
 | Persistence | Local run directories and JSON | Media, metadata and intermediate artifacts |
+
+---
+
+## Repository layout
+
+<details>
+<summary><strong>View repository structure</strong></summary>
+
+```text
+TraceMeet/
+├── app.py                         # Streamlit entry point
+├── README.md
+├── LICENSE
+├── .gitignore
+├── .streamlit/
+│   └── config.toml                # Streamlit settings
+├── config/
+│   └── default.yaml               # Model and pipeline configuration
+├── pages/
+│   └── 1_Saved_runs.py             # Browse and resume saved runs
+├── prompts/
+│   ├── refine_v1.txt               # Domain-aware refinement instructions
+│   ├── minutes_v1.txt              # Structured meeting documentation
+│   ├── minutes_map_v1.txt
+│   └── minutes_map_v2.txt          # Provisional long-meeting observations
+├── tracemeet/
+│   ├── config.py                  # Configuration and environment loading
+│   ├── schemas.py                 # Transcript and meeting-record contracts
+│   ├── errors.py                  # Error utilities
+│   ├── pipeline.py                # Stage orchestration and saved-run recovery
+│   ├── audio/
+│   │   └── validate.py            # Media validation
+│   ├── stt/
+│   │   └── local_whisper.py       # Local speech recognition
+│   ├── llm/
+│   │   ├── base.py                # Common provider interface
+│   │   ├── gemini.py              # Gemini adapter
+│   │   ├── groq_provider.py       # Groq adapter and request budgeting
+│   │   └── router.py              # Retry utilities
+│   ├── stages/
+│   │   ├── refine.py              # Chunked transcript refinement
+│   │   ├── minutes.py             # Single-request documentation
+│   │   ├── minutes_chunks.py      # Long-meeting chunk planning
+│   │   ├── minutes_map.py         # Provisional observation extraction
+│   │   ├── minutes_group.py       # Meeting-wide observation grouping
+│   │   ├── minutes_reconcile.py   # Source-grounded group reconciliation
+│   │   ├── minutes_finalize.py    # Review coverage and overview assembly
+│   │   └── minutes_workflow.py    # Short/long documentation routing
+│   ├── guards/
+│   │   ├── diff.py                # Exact-offset correction logs
+│   │   ├── sensitive.py           # Sensitive-change heuristics
+│   │   └── evidence.py            # Segment and quote checks
+│   ├── export/
+│   │   ├── bundle.py              # Consistent export bundle
+│   │   ├── csv_export.py          # Task CSV
+│   │   └── markdown.py            # Readable meeting notes
+│   └── ui/
+│       ├── processing.py          # Processing controls and status
+│       ├── results.py             # Review, playback and downloads
+│       └── run_labels.py          # Human-readable saved-run labels
+├── scripts/
+│   ├── run.ps1                    # Windows launcher
+│   ├── preflight_pipeline.py      # Integrated configuration/access checks
+│   ├── make_sample_clip.py        # Extract a sample recording
+│   └── ...                        # Stage-specific dev tools and preflights
+├── tests/
+│   └── test_*.py                  # Stage, guard, export, UI and recovery tests
+├── eval/
+│   └── guard_stats.py             # Guard-result statistics
+├── samples/
+│   ├── sample_clip_1.wav
+│   └── sample_clip_2.wav
+├── docs/
+│   ├── technical_description.md
+│   └── demo_checklist.md
+├── requirements.txt               # Runtime dependencies
+├── requirements_dev.txt           # Development/test dependencies
+└── requirements.lock.txt          # Supplied environment snapshot
+```
+
+`.env`, `.venv/` and `runs/` are local setup/runtime artifacts, separate from
+this source listing. Run folders hold recordings, metadata, checkpoints and
+outputs. Keep API keys and private recordings out of version control.
+
+</details>
+
+---
+
 
 ## Quick start: Windows PowerShell
 
@@ -231,6 +321,8 @@ Alternatively, after installation, use:
 powershell -ExecutionPolicy Bypass -File scripts\run.ps1
 ```
 
+---
+
 ## Using TraceMeet
 
 1. Upload an English audio/video recording. Supported upload extensions:
@@ -278,22 +370,8 @@ with its actual generated outputs and source/redistribution information. The dem
 video and packaged sample-output bundle are pending final submission assembly;
 see the [demo checklist](docs/demo_checklist.md).
 
-## Repository layout
+---
 
-| Path | Responsibility |
-|---|---|
-| `app.py`, `pages/` | Upload workflow and saved-runs page |
-| `tracemeet/audio/`, `tracemeet/stt/` | Structural media validation and local transcription |
-| `tracemeet/schemas.py`, `tracemeet/config.py` | Data contracts and configuration |
-| `tracemeet/llm/` | Provider adapters, request budgeting and retry utilities |
-| `tracemeet/stages/` | Refinement and short/long documentation stages |
-| `tracemeet/guards/` | Diffs, sensitive edits and citation checks |
-| `tracemeet/pipeline.py` | Stage sequencing, artifact fingerprints and recovery |
-| `tracemeet/ui/`, `tracemeet/export/` | Shared views, playback, labels and exports |
-| `prompts/`, `config/` | Versioned instructions and model settings |
-| `scripts/`, `tests/` | Development tools, preflights and automated tests |
-| `eval/`, `samples/`, `docs/` | Evaluation tools, sample material and documentation |
-| `runs/` | Local recordings, metadata and intermediate outputs; not source code |
 
 ## Tests and validation status
 
@@ -313,6 +391,8 @@ Annotated WER, decision/task precision and recall, harmful-edit analysis, a held
 recording and the raw-versus-refined ablation remain pending. No accuracy score is
 claimed. See [technical description](docs/technical_description.md).
 
+---
+
 ## Troubleshooting
 
 | Symptom | Next step |
@@ -329,6 +409,8 @@ claimed. See [technical description](docs/technical_description.md).
 | Run already processing | Do not start a second writer. If the server crashed, stop all writers before manually removing that run's `.processing.lock`. |
 | Playback unavailable | Confirm original media remains in the run folder and matches metadata; browser codec support varies. |
 | Port conflict | Add `--server.port 8502` to the Streamlit command. |
+
+---
 
 ## Privacy and limitations
 
@@ -362,7 +444,7 @@ Built as a solo Inter IIT bootcamp project. Thanks to faster-whisper/CTranslate2
 PyAV, the Google Gen AI SDK, Groq, Pydantic, Streamlit and the Python ecosystem.
 Third-party software and models retain their own licenses.
 
-## 📄 License
+## License
 
 MIT License — see [LICENSE](LICENSE) for details.
 
