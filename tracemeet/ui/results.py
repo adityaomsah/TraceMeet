@@ -13,6 +13,7 @@ import streamlit as st
 
 from tracemeet.export.bundle import ExportBundle, build_exports
 from tracemeet.schemas import MeetingRecord, Transcript
+from tracemeet.ui.run_labels import run_label, custom_title, save_title
 
 RECORD_FILES = ("candidate_meeting_record.json", "citation_checked_meeting_record.json")
 VIDEO_SUFFIXES = {".mp4", ".mov", ".mkv", ".webm"}
@@ -392,6 +393,22 @@ def _render_downloads(bundle: Optional[ExportBundle]) -> None:
 
 
 def render_results(run_dir: Path) -> None:
+    run_dir = Path(run_dir)
+    st.subheader(_esc(run_label(run_dir)))
+    st.caption(f"Run ID: {run_dir.name}")
+    with st.expander("Meeting display name"):
+        st.caption("Automatic labels use the first minutes topic when available. Dates use server local time.")
+        with st.form(f"title_form_{run_dir.name}"):
+            title = st.text_input("Custom meeting title (optional)", value=custom_title(run_dir), max_chars=120,
+                                  help="Leave blank to use the automatic title. This does not change the transcript or meeting record.")
+            submitted = st.form_submit_button("Save display name")
+        if submitted:
+            try:
+                save_title(run_dir, title)
+            except OSError:
+                st.error("Could not save the display name. Check folder permissions and try again.")
+            else:
+                st.rerun()
     identity = str(Path(run_dir).resolve())
     if st.session_state.get("play_run") != identity:
         st.session_state["play_run"] = identity

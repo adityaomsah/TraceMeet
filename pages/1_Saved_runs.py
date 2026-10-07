@@ -1,6 +1,7 @@
 from pathlib import Path
 import streamlit as st
 from tracemeet.config import load_config
+from tracemeet.ui.run_labels import run_label
 from tracemeet.pipeline import recover_run
 from tracemeet.ui.processing import execute
 from tracemeet.ui.results import list_runs, render_results, read_json
@@ -11,7 +12,7 @@ st.caption('Viewing and downloading make no API calls. Resume may use API quota 
 runs=list_runs(Path(__file__).resolve().parent.parent/'runs')
 if not runs:
     st.info('No saved transcripts found yet.');st.stop()
-choice=st.selectbox('Run',runs,format_func=lambda path:path.name)
+choice=st.selectbox('Run',runs,format_func=run_label)
 if st.session_state.get('saved_choice') != str(choice):
     st.session_state['saved_choice'] = str(choice)
     st.session_state.pop('tm_error', None)
