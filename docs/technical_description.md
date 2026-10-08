@@ -111,8 +111,8 @@ provider fallback and local Ollama inference are not part of the integrated prof
 
 ## Verification and limitations
 
-The latest explicitly reported full test run before display labels contained
-242 passing tests. Live short recordings exercised the complete application,
+The developer-reported test run at revision `7014be9` passed all 246 tests
+in 6.33 seconds. This run was not repeated during document preparation. Live short recordings exercised the complete application,
 including playback and exports. A 463-segment long recording exercised staged
 extraction through finalization. These are functional observations, not accuracy
 benchmarks. Annotated evaluation, held-out testing and the raw/refined ablation
