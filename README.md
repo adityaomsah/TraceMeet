@@ -62,6 +62,8 @@ still require your own configured API keys.
     - [5. Launch](#5-launch)
   - [Using TraceMeet](#using-tracemeet)
   - [Outputs and samples](#outputs-and-samples)
+    - [Sample recordings and generated outputs](#sample-recordings-and-generated-outputs)
+    - [Technical report](#technical-report)
   - [Tests and validation status](#tests-and-validation-status)
   - [Troubleshooting](#troubleshooting)
   - [Privacy and limitations](#privacy-and-limitations)
@@ -345,28 +347,53 @@ The accepted upload size is controlled by `.streamlit/config.toml`; inspect your
 checkout's setting. A large upload allowance does not guarantee unlimited meeting
 length, low memory use or sufficient cloud quota. Start with a short recording.
 
+---
+
 ## Outputs and samples
 
 | Output | Purpose |
 |---|---|
 | Raw transcript JSON | Timestamped speech-model output |
 | Guarded refined transcript JSON | Text actually passed to documentation |
-| Correction/guard report | Proposed changes and applied/withheld status |
+| Correction/guard report | Proposed changes and applied/withheld status; retained in the run folder |
 | Meeting record JSON | Summary, minutes, decisions, tasks and open questions |
 | Meeting Markdown | Readable meeting notes |
 | Task CSV | Spreadsheet-friendly action items |
 | Evidence report | Citation results and limitations |
-| ZIP | Export bundle; audio is not included |
+| ZIP | Export bundle; audio and correction/guard report are not included |
 
-Missing owners/deadlines remain `null` in structured data and appear as
-**Unspecified** in readable views. Citation-valid values can still be semantically
-wrong and require human inspection.
+Missing owners and deadlines remain `null` in structured data and appear as
+**Unspecified** in readable views. Citation checks verify that quoted text
+exists in the referenced transcript segment; they do not prove that a claim,
+owner, deadline or decision status is correct.
 
-Sample audio is stored in [`samples/`](samples/). To test it, upload a sample WAV
-through the app and generate a new run. A release sample must pair the exact audio
-with its actual generated outputs and source/redistribution information. The demo
-video and packaged sample-output bundle are pending final submission assembly;
-see the [demo checklist](docs/demo_checklist.md).
+### Sample recordings and generated outputs
+
+Two five-minute clips were extracted from this
+[source meeting video on YouTube](https://www.youtube.com/watch?v=rOqgRiNMVqg)
+and processed through TraceMeet. Each recording is paired below with its
+actual generated outputs.
+
+| Recording | Meeting record | Tasks | Complete outputs |
+|---|---|---|---|
+| [Sample 1](samples/sample_clip_1.wav) | [Read minutes](samples/outputs/sample_clip_1/meeting_record.md) | [Task CSV](samples/outputs/sample_clip_1/tasks.csv) | [Browse outputs](samples/outputs/sample_clip_1/) |
+| [Sample 2](samples/sample_clip_2.wav) | [Read minutes](samples/outputs/sample_clip_2/meeting_record.md) | [Task CSV](samples/outputs/sample_clip_2/tasks.csv) | [Browse outputs](samples/outputs/sample_clip_2/) |
+
+To reproduce the workflow, upload either WAV through the app and start a new
+run. Model outputs may vary between runs.
+
+Both clips come from the same meeting and are development examples, not an
+independent held-out evaluation. The source recording belongs to its respective
+creators; the repository's code license does not grant rights to that recording.
+
+### Technical report
+
+[Read the technical report (PDF)](docs/report/TraceMeet-technical-report.pdf)
+
+The report covers the architecture, model choices, engineering decisions,
+validation evidence and known limitations.
+
+See the [demo checklist](docs/demo_checklist.md) for the demonstration workflow.
 
 ---
 

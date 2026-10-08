@@ -1,0 +1,218 @@
+{
+  "verifier_version": "evidence-v1",
+  "status": "citation_checked_semantics_unverified",
+  "match_policy": "exact_substring_with_word_boundaries",
+  "semantic_support_checked": false,
+  "summary_status": "uncited",
+  "counts": {
+    "exact_matches": 19,
+    "invalid_citations": 0,
+    "dropped_items": 0,
+    "cleared_fields": 0
+  },
+  "citation_checks": [
+    {
+      "segment_id": "seg_0007",
+      "quote": "you know, the nutshell here is as we've kind of restructured and tried different things,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 88,
+      "start_s": 32.14,
+      "end_s": 37.66,
+      "path": "minutes[0].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0008",
+      "quote": "the event support that we need isn't as nailed down as it needs to be.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 70,
+      "start_s": 39.28,
+      "end_s": 43.36,
+      "path": "minutes[0].evidence[1]"
+    },
+    {
+      "segment_id": "seg_0009",
+      "quote": "So the current tactic that we're going with is go-to-market team signs up and kind of",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 85,
+      "start_s": 44.72,
+      "end_s": 52.88,
+      "path": "minutes[0].evidence[2]"
+    },
+    {
+      "segment_id": "seg_0010",
+      "quote": "sponsors that event. So you support as a PMM, your campaign manager does the campaigns for",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 90,
+      "start_s": 54.4,
+      "end_s": 59.52,
+      "path": "minutes[0].evidence[3]"
+    },
+    {
+      "segment_id": "seg_0021",
+      "quote": "So let me ask that I saw some Slack, I think in our Slack,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 58,
+      "start_s": 103.57,
+      "end_s": 108.57,
+      "path": "minutes[1].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0022",
+      "quote": "but did you all, were you all able to connect",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 45,
+      "start_s": 108.61,
+      "end_s": 112.17,
+      "path": "minutes[1].evidence[1]"
+    },
+    {
+      "segment_id": "seg_0023",
+      "quote": "with like your GTM teams?",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 25,
+      "start_s": 112.17,
+      "end_s": 114.25,
+      "path": "minutes[1].evidence[2]"
+    },
+    {
+      "segment_id": "seg_0025",
+      "quote": "Yeah, same, not in real time, but source feedback.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 50,
+      "start_s": 120.92,
+      "end_s": 124.76,
+      "path": "minutes[1].evidence[3]"
+    },
+    {
+      "segment_id": "seg_0038",
+      "quote": "So it looks like maybe a platform on reInvent,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 46,
+      "start_s": 170.08,
+      "end_s": 175.39,
+      "path": "minutes[2].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0039",
+      "quote": "CICD on Google Next and GitOps on KubeCon,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 42,
+      "start_s": 175.39,
+      "end_s": 178.87,
+      "path": "minutes[2].evidence[1]"
+    },
+    {
+      "segment_id": "seg_0040",
+      "quote": "does that sound right?",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 22,
+      "start_s": 178.87,
+      "end_s": 180.15,
+      "path": "minutes[2].evidence[2]"
+    },
+    {
+      "segment_id": "seg_0044",
+      "quote": "the corp events team they do they do a lot of like cat herding and you know keep on tracking",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 92,
+      "start_s": 190.69,
+      "end_s": 196.85,
+      "path": "minutes[3].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0046",
+      "quote": "so if you you know get the commitment specifically from your campaign managers hey like we're",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 93,
+      "start_s": 205.04,
+      "end_s": 211.08,
+      "path": "minutes[3].evidence[1]"
+    },
+    {
+      "segment_id": "seg_0047",
+      "quote": "signing up for kubecon you know can you comment on the issue that yes I can commit to this",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 90,
+      "start_s": 211.08,
+      "end_s": 216.6,
+      "path": "minutes[3].evidence[2]"
+    },
+    {
+      "segment_id": "seg_0049",
+      "quote": "So that just so that they can get that event support.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 53,
+      "start_s": 221.62,
+      "end_s": 224.82,
+      "path": "minutes[3].evidence[3]"
+    },
+    {
+      "segment_id": "seg_0056",
+      "quote": "One is, over what time frame are we looking at?",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 47,
+      "start_s": 245.31,
+      "end_s": 249.65,
+      "path": "minutes[4].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0056",
+      "quote": "One is, over what time frame are we looking at?",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 47,
+      "start_s": 245.31,
+      "end_s": 249.65,
+      "path": "open_questions[0].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0046",
+      "quote": "so if you you know get the commitment specifically from your campaign managers hey like we're",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 93,
+      "start_s": 205.04,
+      "end_s": 211.08,
+      "path": "action_items[0].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0047",
+      "quote": "signing up for kubecon you know can you comment on the issue that yes I can commit to this",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 90,
+      "start_s": 211.08,
+      "end_s": 216.6,
+      "path": "action_items[0].evidence[1]"
+    }
+  ],
+  "issues": [
+    {
+      "path": "summary",
+      "action": "flag",
+      "reason": "The current summary field has no citations. It is retained as an unverified overview."
+    }
+  ],
+  "limitations": [
+    "Exact quotes do not prove that an associated claim follows from them.",
+    "Speaker attribution and decision/task statuses are not verified.",
+    "The overall summary has no citations in the current schema.",
+    "Playback timestamps cover the source segment, not the exact quote."
+  ]
+}

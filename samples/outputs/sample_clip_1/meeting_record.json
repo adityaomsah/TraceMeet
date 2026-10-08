@@ -1,0 +1,328 @@
+{
+  "summary": "The meeting outlined its purpose around secure growth and data science, set a tentative date, and introduced communication and agenda policies. Leadership attendance expectations and read‑only agenda handling were clarified. Alan was appointed acting full‑stack manager for security policies pending a hire. Anti‑abuse will transition to the Data Science group, expanding its scope and planning a future split. A container‑security bot was deployed for weekly volunteer prompts.\n\nThe meeting covered two main areas: the project schedule for the upcoming phase, with tentative timing and sign‑off expectations, and the migration of major changes to Workday, including availability, demo status, and a self‑evaluation component.",
+  "minutes": [
+    {
+      "title": "Meeting purpose",
+      "summary": "The session focuses on secure and governed growth, covering data science, applied ML, MLOps, and the anti‑abuse team.",
+      "evidence": [
+        {
+          "segment_id": "seg_0001",
+          "quote": "So it is the sick, meaning secure and govern growth and data science meaning applied ml ml ops and anti abuse team meeting. That's a big mouthful, we might get a better name over time."
+        }
+      ]
+    },
+    {
+      "title": "Meeting date",
+      "summary": "The meeting is slated for either September 14 or September 15.",
+      "evidence": [
+        {
+          "segment_id": "seg_0002",
+          "quote": "And that's our meeting for September 14 or 15 in a pack and hi Alan glad you're here. Why are you here when it's midnight, we can talk glad you're here, don't make it happen to come to this meeting since it's really late for you."
+        }
+      ]
+    },
+    {
+      "title": "Improving Communication Signal‑to‑Noise",
+      "summary": "The speaker pledged to provide more summarized communications to reduce noise for the group.",
+      "evidence": [
+        {
+          "segment_id": "seg_0005",
+          "quote": "So apologies for that, but I think it's going to go down over time. Based on feedback I'll work, I'm going to work to do more summarized communications to improve the signal-to-noise ratio in my communications to groups of people, including this group"
+        }
+      ]
+    },
+    {
+      "title": "Agenda Item Posting Policy",
+      "summary": "Future agenda items will often be added as read‑only entries rather than posted to the Slack channel.",
+      "evidence": [
+        {
+          "segment_id": "seg_0007",
+          "quote": "This will result in, for this group,"
+        },
+        {
+          "segment_id": "seg_0008",
+          "quote": "adding more items to our staff meeting agenda,"
+        },
+        {
+          "segment_id": "seg_0009",
+          "quote": "often as read-only, rather than posting to our Slack channel."
+        }
+      ]
+    },
+    {
+      "title": "Leadership Attendance Expectation",
+      "summary": "Team leaders are expected to attend the meeting or read the notes instead of relying solely on the Slack channel.",
+      "evidence": [
+        {
+          "segment_id": "seg_0010",
+          "quote": "And I am going to be assuming that people,"
+        },
+        {
+          "segment_id": "seg_0011",
+          "quote": "leaders on the team will attend this meeting"
+        },
+        {
+          "segment_id": "seg_0012",
+          "quote": "or read the notes and not rely on the Slack channel."
+        }
+      ]
+    },
+    {
+      "title": "Item B read‑only status",
+      "summary": "Item B is designated as a read‑only agenda item unless someone wishes to discuss it.",
+      "evidence": [
+        {
+          "segment_id": "seg_0014",
+          "quote": "Let's see, B is a read-only item,"
+        },
+        {
+          "segment_id": "seg_0015",
+          "quote": "unless anybody wants to discuss it."
+        }
+      ]
+    },
+    {
+      "title": "Item F read‑only and assignment of Item G",
+      "summary": "Item F is read‑only; Bill has been assigned Item G (talent assessment).",
+      "evidence": [
+        {
+          "segment_id": "seg_0079",
+          "quote": "The F is read only and Bill, you've got G."
+        },
+        {
+          "segment_id": "seg_0080",
+          "quote": "Yeah, talent assessment."
+        }
+      ]
+    },
+    {
+      "title": "Acting Full‑Stack Manager Assignment",
+      "summary": "Alan will serve as acting full‑stack manager for security policies while an Engineering Manager is being hired.",
+      "evidence": [
+        {
+          "segment_id": "seg_0018",
+          "quote": "I've asked Alan to step in as acting full-stack manager"
+        },
+        {
+          "segment_id": "seg_0019",
+          "quote": "for security policies while I hire an EM."
+        },
+        {
+          "segment_id": "seg_0020",
+          "quote": "Alan has graciously accepted this wonderful opportunity."
+        }
+      ]
+    },
+    {
+      "title": "Anti‑abuse moving to Data Science",
+      "summary": "Anti‑abuse is transitioning from the SEC group to the Data Science group, effectively renaming the model‑ops section.",
+      "evidence": [
+        {
+          "segment_id": "seg_0024",
+          "quote": "So anti-abuse is moving product sections"
+        },
+        {
+          "segment_id": "seg_0025",
+          "quote": "from SEC to data science."
+        },
+        {
+          "segment_id": "seg_0026",
+          "quote": "Data science is effectively a rename"
+        }
+      ]
+    },
+    {
+      "title": "Scope of Data Science group",
+      "summary": "Data Science will encompass the existing Model‑Ops groups (three) and the anti‑abuse stage (one).",
+      "evidence": [
+        {
+          "segment_id": "seg_0028",
+          "quote": "So data science will include two stages,"
+        },
+        {
+          "segment_id": "seg_0029",
+          "quote": "the existing model ops, which has three groups in it,"
+        },
+        {
+          "segment_id": "seg_0030",
+          "quote": "which Mon can talk more about,"
+        },
+        {
+          "segment_id": "seg_0031",
+          "quote": "and the anti-abuse stage,"
+        },
+        {
+          "segment_id": "seg_0032",
+          "quote": "which only currently has one group,"
+        },
+        {
+          "segment_id": "seg_0033",
+          "quote": "which is called anti-abuse."
+        }
+      ]
+    },
+    {
+      "title": "Future split of anti‑abuse",
+      "summary": "Plans exist to split anti‑abuse into two groups, though this is not expected soon.",
+      "evidence": [
+        {
+          "segment_id": "seg_0035",
+          "quote": "to split anti-abuse into two groups,"
+        },
+        {
+          "segment_id": "seg_0036",
+          "quote": "but that's not in the near term."
+        }
+      ]
+    },
+    {
+      "title": "Confirmation of structure by Mon",
+      "summary": "Mon confirmed their team will roll up to Data Science and that Applied ML, MLOps, and DataOps structures remain unchanged.",
+      "evidence": [
+        {
+          "segment_id": "seg_0042",
+          "quote": "No, I think for us, we just roll up to data science,"
+        },
+        {
+          "segment_id": "seg_0043",
+          "quote": "everything else stays the same."
+        },
+        {
+          "segment_id": "seg_0044",
+          "quote": "We still have the two main groups,"
+        },
+        {
+          "segment_id": "seg_0045",
+          "quote": "Applied ML, MLOps, and then later DataOps,"
+        },
+        {
+          "segment_id": "seg_0046",
+          "quote": "as part of it, yeah."
+        }
+      ]
+    },
+    {
+      "title": "Container security bot setup",
+      "summary": "Tiago set up a bot that weekly pings the team to volunteer for container‑security data collection and enables thread insights.",
+      "evidence": [
+        {
+          "segment_id": "seg_0069",
+          "quote": "I was going to mention, I'll type this in here,"
+        },
+        {
+          "segment_id": "seg_0070",
+          "quote": "but Tiago had set up for container security,"
+        },
+        {
+          "segment_id": "seg_0071",
+          "quote": "a bot that weekly, I think it's Mondays or like Sunday,"
+        },
+        {
+          "segment_id": "seg_0072",
+          "quote": "will ping the team and ask for volunteer"
+        },
+        {
+          "segment_id": "seg_0073",
+          "quote": "to go and resource that data."
+        },
+        {
+          "segment_id": "seg_0074",
+          "quote": "And we just enabled it for thread insights."
+        }
+      ]
+    },
+    {
+      "title": "Project schedule and sign‑off timeline",
+      "summary": "Juliana reported a draft timeline pending handbook entry; exact dates remain unconfirmed, with work expected between mid‑October and December. E‑group sign‑off is targeted for mid‑December, ideally before the holiday break.",
+      "evidence": [
+        {
+          "segment_id": "seg_0081",
+          "quote": "So we had an update from Juliana."
+        },
+        {
+          "segment_id": "seg_0082",
+          "quote": "The dates haven't been confirmed yet,"
+        },
+        {
+          "segment_id": "seg_0083",
+          "quote": "but it'll be sometime from mid-October through to December."
+        },
+        {
+          "segment_id": "seg_0084",
+          "quote": "I think E-group sign-off is expected to be mid-December"
+        },
+        {
+          "segment_id": "seg_0085",
+          "quote": "before everyone goes on holiday."
+        },
+        {
+          "segment_id": "seg_0086",
+          "quote": "They've got a draft timeline in there,"
+        },
+        {
+          "segment_id": "seg_0087",
+          "quote": "but the dates aren't in the handbook yet."
+        }
+      ]
+    },
+    {
+      "title": "Workday migration and readiness",
+      "summary": "The team discussed moving major changes to Workday, noting the system is not yet available and no demo has been seen. Questions about upcoming changes are still unclear, and an optional self‑evaluation component will also be migrated.",
+      "evidence": [
+        {
+          "segment_id": "seg_0088",
+          "quote": "The big changes, we're moving to do it in Workday."
+        },
+        {
+          "segment_id": "seg_0089",
+          "quote": "That's not available yet. I haven't seen a demo of it."
+        },
+        {
+          "segment_id": "seg_0090",
+          "quote": "I don't know what questions will be asked."
+        },
+        {
+          "segment_id": "seg_0091",
+          "quote": "But there's an optional self-evaluation which will move into Workday."
+        }
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "text": "Alan will serve as acting full‑stack manager for security policies until an Engineering Manager is hired.",
+      "status": "decided",
+      "evidence": [
+        {
+          "segment_id": "seg_0018",
+          "quote": "I've asked Alan to step in as acting full-stack manager"
+        },
+        {
+          "segment_id": "seg_0019",
+          "quote": "for security policies while I hire an EM."
+        },
+        {
+          "segment_id": "seg_0020",
+          "quote": "Alan has graciously accepted this wonderful opportunity."
+        }
+      ]
+    }
+  ],
+  "action_items": [
+    {
+      "description": "Provide more summarized communications to improve signal‑to‑noise ratio for the group.",
+      "status": "confirmed",
+      "owner": null,
+      "deadline": null,
+      "evidence": [
+        {
+          "segment_id": "seg_0005",
+          "quote": "So apologies for that, but I think it's going to go down over time. Based on feedback I'll work, I'm going to work to do more summarized communications to improve the signal-to-noise ratio in my communications to groups of people, including this group"
+        }
+      ],
+      "owner_evidence": [],
+      "deadline_evidence": []
+    }
+  ],
+  "open_questions": []
+}

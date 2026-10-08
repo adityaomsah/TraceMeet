@@ -1,0 +1,2 @@
+﻿task_id,description,status,owner,deadline,task_evidence,owner_evidence,deadline_evidence
+task_001,"Obtain explicit commitment from campaign managers for upcoming events (e.g., KubeCon) via issue comments.",tentative,Unspecified,Unspecified,"[{""segment_id"":""seg_0046"",""quote"":""so if you you know get the commitment specifically from your campaign managers hey like we're""},{""segment_id"":""seg_0047"",""quote"":""signing up for kubecon you know can you comment on the issue that yes I can commit to this""}]",[],[]

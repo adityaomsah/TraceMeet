@@ -1,0 +1,131 @@
+{
+  "summary": "The discussion focused on the need for better event support coordination, involving GTM teams and the corporate events team, and raised questions about the timeline for upcoming announcements.",
+  "minutes": [
+    {
+      "title": "Current Event Support Gaps",
+      "summary": "The team noted that after recent restructuring, event support is not well defined and the current tactic relies on the go‑to‑market (GTM) team signing up and sponsoring events.",
+      "evidence": [
+        {
+          "segment_id": "seg_0007",
+          "quote": "you know, the nutshell here is as we've kind of restructured and tried different things,"
+        },
+        {
+          "segment_id": "seg_0008",
+          "quote": "the event support that we need isn't as nailed down as it needs to be."
+        },
+        {
+          "segment_id": "seg_0009",
+          "quote": "So the current tactic that we're going with is go-to-market team signs up and kind of"
+        },
+        {
+          "segment_id": "seg_0010",
+          "quote": "sponsors that event. So you support as a PMM, your campaign manager does the campaigns for"
+        }
+      ]
+    },
+    {
+      "title": "Coordination with GTM Teams",
+      "summary": "Participants discussed reaching out to GTM teams via Slack and issue trackers to gather feedback and support for events.",
+      "evidence": [
+        {
+          "segment_id": "seg_0021",
+          "quote": "So let me ask that I saw some Slack, I think in our Slack,"
+        },
+        {
+          "segment_id": "seg_0022",
+          "quote": "but did you all, were you all able to connect"
+        },
+        {
+          "segment_id": "seg_0023",
+          "quote": "with like your GTM teams?"
+        },
+        {
+          "segment_id": "seg_0025",
+          "quote": "Yeah, same, not in real time, but source feedback."
+        }
+      ]
+    },
+    {
+      "title": "Upcoming Event Calendar",
+      "summary": "The group identified several upcoming events: a platform session at reInvent, CICD at Google Next, and GitOps at KubeCon.",
+      "evidence": [
+        {
+          "segment_id": "seg_0038",
+          "quote": "So it looks like maybe a platform on reInvent,"
+        },
+        {
+          "segment_id": "seg_0039",
+          "quote": "CICD on Google Next and GitOps on KubeCon,"
+        },
+        {
+          "segment_id": "seg_0040",
+          "quote": "does that sound right?"
+        }
+      ]
+    },
+    {
+      "title": "Role of Corporate Events Team",
+      "summary": "It was suggested that the corporate events team could help track commitments from campaign managers for specific events.",
+      "evidence": [
+        {
+          "segment_id": "seg_0044",
+          "quote": "the corp events team they do they do a lot of like cat herding and you know keep on tracking"
+        },
+        {
+          "segment_id": "seg_0046",
+          "quote": "so if you you know get the commitment specifically from your campaign managers hey like we're"
+        },
+        {
+          "segment_id": "seg_0047",
+          "quote": "signing up for kubecon you know can you comment on the issue that yes I can commit to this"
+        },
+        {
+          "segment_id": "seg_0049",
+          "quote": "So that just so that they can get that event support."
+        }
+      ]
+    },
+    {
+      "title": "Timeline Question",
+      "summary": "A question was raised about the time frame for the upcoming announcements and releases.",
+      "evidence": [
+        {
+          "segment_id": "seg_0056",
+          "quote": "One is, over what time frame are we looking at?"
+        }
+      ]
+    }
+  ],
+  "decisions": [],
+  "action_items": [
+    {
+      "description": "Obtain explicit commitment from campaign managers for upcoming events (e.g., KubeCon) via issue comments.",
+      "status": "tentative",
+      "owner": null,
+      "deadline": null,
+      "evidence": [
+        {
+          "segment_id": "seg_0046",
+          "quote": "so if you you know get the commitment specifically from your campaign managers hey like we're"
+        },
+        {
+          "segment_id": "seg_0047",
+          "quote": "signing up for kubecon you know can you comment on the issue that yes I can commit to this"
+        }
+      ],
+      "owner_evidence": [],
+      "deadline_evidence": []
+    }
+  ],
+  "open_questions": [
+    {
+      "text": "What is the time frame for the upcoming announcements and releases?",
+      "evidence": [
+        {
+          "segment_id": "seg_0056",
+          "quote": "One is, over what time frame are we looking at?"
+        }
+      ]
+    }
+  ]
+}

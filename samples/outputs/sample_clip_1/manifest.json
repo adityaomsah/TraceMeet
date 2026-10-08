@@ -1,0 +1,19 @@
+{
+  "export_version": "exports-v1",
+  "record_status": "citation_checked_semantics_unverified",
+  "counts": {
+    "minutes": 15,
+    "decisions": 1,
+    "action_items": 1,
+    "open_questions": 0
+  },
+  "sha256": {
+    "meeting_record.json": "0f9794282d22f90195725d18ce86ef21d3988ca4df23f7bf8605a30ed661301f",
+    "meeting_record.md": "42c1db2937f4489981eb00f93f55ecaadc37ced3a1333fbcdcb29e5a6b28e150",
+    "tasks.csv": "2a61d0179acfb23517d598619a17821d30bd71fb488a550d4912edbbc1f7fd29",
+    "raw_transcript.json": "6426da87e5dc0a1e02f270ad04cdea9d42d66d87e41514b1225b71ea807ad6da",
+    "refined_transcript.json": "18d0410bfb4a75cba702bf5b19d88caef22f5345a092246b707ba49ff9d3f109",
+    "evidence_report.json": "fae4fa6b7127a96eb3ab1a1b86eeb47bde24d36b46ff05ac5261ec40a7352c15",
+    "EXPORT_NOTES.txt": "8b5f9720861ca2af419bfa9cbf57ee2f2faa44ad420d5d1c0e22792f9bec8f2a"
+  }
+}

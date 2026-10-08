@@ -1,0 +1,551 @@
+{
+  "segments": [
+    {
+      "id": "seg_0001",
+      "start": 0.0,
+      "end": 9.26,
+      "text": "It can record, and we don't have a ton of items to get to.",
+      "avg_logprob": -0.1764576042399687,
+      "no_speech_prob": 0.06703615188598633
+    },
+    {
+      "id": "seg_0002",
+      "start": 9.26,
+      "end": 13.26,
+      "text": "And I might be able to do one that might be fun",
+      "avg_logprob": -0.1764576042399687,
+      "no_speech_prob": 0.06703615188598633
+    },
+    {
+      "id": "seg_0003",
+      "start": 13.26,
+      "end": 16.38,
+      "text": "if we have a little bit of time.",
+      "avg_logprob": -0.1764576042399687,
+      "no_speech_prob": 0.06703615188598633
+    },
+    {
+      "id": "seg_0004",
+      "start": 16.38,
+      "end": 24.0,
+      "text": "So corporate events, they, I think I saw a little,",
+      "avg_logprob": -0.1764576042399687,
+      "no_speech_prob": 0.06703615188598633
+    },
+    {
+      "id": "seg_0005",
+      "start": 24.0,
+      "end": 27.76,
+      "text": "I put this in Slack, and I saw a little bit of noise",
+      "avg_logprob": -0.1764576042399687,
+      "no_speech_prob": 0.06703615188598633
+    },
+    {
+      "id": "seg_0006",
+      "start": 27.76,
+      "end": 29.52,
+      "text": "around it, which was good.",
+      "avg_logprob": -0.1764576042399687,
+      "no_speech_prob": 0.06703615188598633
+    },
+    {
+      "id": "seg_0007",
+      "start": 32.14,
+      "end": 37.66,
+      "text": "you know, the nutshell here is as we've kind of restructured and tried different things,",
+      "avg_logprob": -0.15090466065462246,
+      "no_speech_prob": 0.013826078735291958
+    },
+    {
+      "id": "seg_0008",
+      "start": 39.28,
+      "end": 43.36,
+      "text": "the event support that we need isn't as nailed down as it needs to be.",
+      "avg_logprob": -0.15090466065462246,
+      "no_speech_prob": 0.013826078735291958
+    },
+    {
+      "id": "seg_0009",
+      "start": 44.72,
+      "end": 52.88,
+      "text": "So the current tactic that we're going with is go-to-market team signs up and kind of",
+      "avg_logprob": -0.15090466065462246,
+      "no_speech_prob": 0.013826078735291958
+    },
+    {
+      "id": "seg_0010",
+      "start": 54.4,
+      "end": 59.52,
+      "text": "sponsors that event. So you support as a PMM, your campaign manager does the campaigns for",
+      "avg_logprob": -0.15090466065462246,
+      "no_speech_prob": 0.013826078735291958
+    },
+    {
+      "id": "seg_0011",
+      "start": 59.52,
+      "end": 62.88,
+      "text": "for that event, et cetera, et cetera, et cetera.",
+      "avg_logprob": -0.13177128065200078,
+      "no_speech_prob": 0.06627686321735382
+    },
+    {
+      "id": "seg_0012",
+      "start": 62.88,
+      "end": 65.6,
+      "text": "I don't see anyone in the,",
+      "avg_logprob": -0.13177128065200078,
+      "no_speech_prob": 0.06627686321735382
+    },
+    {
+      "id": "seg_0013",
+      "start": 66.86,
+      "end": 68.62,
+      "text": "maybe there are comments in the issue.",
+      "avg_logprob": -0.13177128065200078,
+      "no_speech_prob": 0.06627686321735382
+    },
+    {
+      "id": "seg_0014",
+      "start": 68.62,
+      "end": 72.34,
+      "text": "I don't see the header updated yet.",
+      "avg_logprob": -0.13177128065200078,
+      "no_speech_prob": 0.06627686321735382
+    },
+    {
+      "id": "seg_0015",
+      "start": 72.34,
+      "end": 76.74,
+      "text": "I thought we had in Slack sort of farmed each one of them out.",
+      "avg_logprob": -0.13177128065200078,
+      "no_speech_prob": 0.06627686321735382
+    },
+    {
+      "id": "seg_0016",
+      "start": 76.74,
+      "end": 79.18,
+      "text": "That's, so I guess that the next,",
+      "avg_logprob": -0.13177128065200078,
+      "no_speech_prob": 0.06627686321735382
+    },
+    {
+      "id": "seg_0017",
+      "start": 79.18,
+      "end": 85.84,
+      "text": "so it looks like Ty put in some folks.",
+      "avg_logprob": -0.13177128065200078,
+      "no_speech_prob": 0.06627686321735382
+    },
+    {
+      "id": "seg_0018",
+      "start": 86.64,
+      "end": 90.46,
+      "text": "It looks like this looks good.",
+      "avg_logprob": -0.13177128065200078,
+      "no_speech_prob": 0.06627686321735382
+    },
+    {
+      "id": "seg_0019",
+      "start": 90.46,
+      "end": 95.86,
+      "text": "So the, let's see, need support from GTM teams.",
+      "avg_logprob": -0.24497511953410536,
+      "no_speech_prob": 0.0010910151759162545
+    },
+    {
+      "id": "seg_0020",
+      "start": 95.86,
+      "end": 102.01,
+      "text": "So I guess the ask would be to work with your GTM teams.",
+      "avg_logprob": -0.24497511953410536,
+      "no_speech_prob": 0.0010910151759162545
+    },
+    {
+      "id": "seg_0021",
+      "start": 103.57,
+      "end": 108.57,
+      "text": "So let me ask that I saw some Slack, I think in our Slack,",
+      "avg_logprob": -0.24497511953410536,
+      "no_speech_prob": 0.0010910151759162545
+    },
+    {
+      "id": "seg_0022",
+      "start": 108.61,
+      "end": 112.17,
+      "text": "but did you all, were you all able to connect",
+      "avg_logprob": -0.24497511953410536,
+      "no_speech_prob": 0.0010910151759162545
+    },
+    {
+      "id": "seg_0023",
+      "start": 112.17,
+      "end": 114.25,
+      "text": "with like your GTM teams?",
+      "avg_logprob": -0.24497511953410536,
+      "no_speech_prob": 0.0010910151759162545
+    },
+    {
+      "id": "seg_0024",
+      "start": 117.56,
+      "end": 120.92,
+      "text": "On Slack only and on the issue actually.",
+      "avg_logprob": -0.24497511953410536,
+      "no_speech_prob": 0.0010910151759162545
+    },
+    {
+      "id": "seg_0025",
+      "start": 120.92,
+      "end": 124.76,
+      "text": "Yeah, same, not in real time, but source feedback.",
+      "avg_logprob": -0.24497511953410536,
+      "no_speech_prob": 0.0010910151759162545
+    },
+    {
+      "id": "seg_0026",
+      "start": 124.76,
+      "end": 127.0,
+      "text": "I got one person to respond so far.",
+      "avg_logprob": -0.21893482084746832,
+      "no_speech_prob": 0.002413016278296709
+    },
+    {
+      "id": "seg_0027",
+      "start": 127.0,
+      "end": 128.88,
+      "text": "So it may end up Cindy, being you and I",
+      "avg_logprob": -0.21893482084746832,
+      "no_speech_prob": 0.002413016278296709
+    },
+    {
+      "id": "seg_0028",
+      "start": 128.88,
+      "end": 130.32,
+      "text": "just picking the one that we wanna do",
+      "avg_logprob": -0.21893482084746832,
+      "no_speech_prob": 0.002413016278296709
+    },
+    {
+      "id": "seg_0029",
+      "start": 130.32,
+      "end": 131.84,
+      "text": "and then they can back us up",
+      "avg_logprob": -0.21893482084746832,
+      "no_speech_prob": 0.002413016278296709
+    },
+    {
+      "id": "seg_0030",
+      "start": 134.93,
+      "end": 138.68,
+      "text": "if we don't get any more feedback.",
+      "avg_logprob": -0.21893482084746832,
+      "no_speech_prob": 0.002413016278296709
+    },
+    {
+      "id": "seg_0031",
+      "start": 138.68,
+      "end": 143.68,
+      "text": "Yeah, do y'all, does anybody have like a regular sync still",
+      "avg_logprob": -0.21893482084746832,
+      "no_speech_prob": 0.002413016278296709
+    },
+    {
+      "id": "seg_0032",
+      "start": 144.12,
+      "end": 146.86,
+      "text": "are those all been canceled or is there?",
+      "avg_logprob": -0.21893482084746832,
+      "no_speech_prob": 0.002413016278296709
+    },
+    {
+      "id": "seg_0033",
+      "start": 151.46,
+      "end": 153.98,
+      "text": "Yeah, we're on like the two week cadence.",
+      "avg_logprob": -0.21893482084746832,
+      "no_speech_prob": 0.002413016278296709
+    },
+    {
+      "id": "seg_0034",
+      "start": 153.98,
+      "end": 155.06,
+      "text": "Okay.",
+      "avg_logprob": -0.21893482084746832,
+      "no_speech_prob": 0.002413016278296709
+    },
+    {
+      "id": "seg_0035",
+      "start": 155.06,
+      "end": 157.74,
+      "text": "Yeah, GitOps has been canceled",
+      "avg_logprob": -0.21893482084746832,
+      "no_speech_prob": 0.002413016278296709
+    },
+    {
+      "id": "seg_0036",
+      "start": 157.74,
+      "end": 162.42,
+      "text": "after the enablement.",
+      "avg_logprob": -0.216194435161479,
+      "no_speech_prob": 0.012863908894360065
+    },
+    {
+      "id": "seg_0037",
+      "start": 162.42,
+      "end": 166.72,
+      "text": "Cool, so I'm just trying to catch up with the thread.",
+      "avg_logprob": -0.216194435161479,
+      "no_speech_prob": 0.012863908894360065
+    },
+    {
+      "id": "seg_0038",
+      "start": 170.08,
+      "end": 175.39,
+      "text": "So it looks like maybe a platform on reInvent,",
+      "avg_logprob": -0.216194435161479,
+      "no_speech_prob": 0.012863908894360065
+    },
+    {
+      "id": "seg_0039",
+      "start": 175.39,
+      "end": 178.87,
+      "text": "CICD on Google Next and GitOps on KubeCon,",
+      "avg_logprob": -0.216194435161479,
+      "no_speech_prob": 0.012863908894360065
+    },
+    {
+      "id": "seg_0040",
+      "start": 178.87,
+      "end": 180.15,
+      "text": "does that sound right?",
+      "avg_logprob": -0.216194435161479,
+      "no_speech_prob": 0.012863908894360065
+    },
+    {
+      "id": "seg_0041",
+      "start": 180.15,
+      "end": 180.99,
+      "text": "Yeah.",
+      "avg_logprob": -0.216194435161479,
+      "no_speech_prob": 0.012863908894360065
+    },
+    {
+      "id": "seg_0042",
+      "start": 180.99,
+      "end": 184.19,
+      "text": "Yep, that's where we were last I heard.",
+      "avg_logprob": -0.216194435161479,
+      "no_speech_prob": 0.012863908894360065
+    },
+    {
+      "id": "seg_0043",
+      "start": 184.19,
+      "end": 190.69,
+      "text": "Cool, so then I think we can help the Corp Events team.",
+      "avg_logprob": -0.216194435161479,
+      "no_speech_prob": 0.012863908894360065
+    },
+    {
+      "id": "seg_0044",
+      "start": 190.69,
+      "end": 196.85,
+      "text": "the corp events team they do they do a lot of like cat herding and you know keep on tracking",
+      "avg_logprob": -0.13595149248510927,
+      "no_speech_prob": 0.13741979002952576
+    },
+    {
+      "id": "seg_0045",
+      "start": 196.85,
+      "end": 205.04,
+      "text": "people down so I think if if this team can take the mission to like try to help track that down",
+      "avg_logprob": -0.13595149248510927,
+      "no_speech_prob": 0.13741979002952576
+    },
+    {
+      "id": "seg_0046",
+      "start": 205.04,
+      "end": 211.08,
+      "text": "so if you you know get the commitment specifically from your campaign managers hey like we're",
+      "avg_logprob": -0.13595149248510927,
+      "no_speech_prob": 0.13741979002952576
+    },
+    {
+      "id": "seg_0047",
+      "start": 211.08,
+      "end": 216.6,
+      "text": "signing up for kubecon you know can you comment on the issue that yes I can commit to this",
+      "avg_logprob": -0.13595149248510927,
+      "no_speech_prob": 0.13741979002952576
+    },
+    {
+      "id": "seg_0048",
+      "start": 216.6,
+      "end": 221.62,
+      "text": "this, et cetera, et cetera, et cetera, you know.",
+      "avg_logprob": -0.21650807164673114,
+      "no_speech_prob": 0.07890418916940689
+    },
+    {
+      "id": "seg_0049",
+      "start": 221.62,
+      "end": 224.82,
+      "text": "So that just so that they can get that event support.",
+      "avg_logprob": -0.21650807164673114,
+      "no_speech_prob": 0.07890418916940689
+    },
+    {
+      "id": "seg_0050",
+      "start": 224.82,
+      "end": 228.44,
+      "text": "But that looks good, and I appreciate.",
+      "avg_logprob": -0.21650807164673114,
+      "no_speech_prob": 0.07890418916940689
+    },
+    {
+      "id": "seg_0051",
+      "start": 228.44,
+      "end": 232.91,
+      "text": "Thanks for the link, too, Samia, on the roles.",
+      "avg_logprob": -0.21650807164673114,
+      "no_speech_prob": 0.07890418916940689
+    },
+    {
+      "id": "seg_0052",
+      "start": 232.91,
+      "end": 235.52,
+      "text": "Product announcements.",
+      "avg_logprob": -0.21650807164673114,
+      "no_speech_prob": 0.07890418916940689
+    },
+    {
+      "id": "seg_0053",
+      "start": 235.52,
+      "end": 238.32,
+      "text": "So I appreciate, Brian, for adding this.",
+      "avg_logprob": -0.21650807164673114,
+      "no_speech_prob": 0.07890418916940689
+    },
+    {
+      "id": "seg_0054",
+      "start": 238.32,
+      "end": 242.43,
+      "text": "I probably should have added it, but.",
+      "avg_logprob": -0.21650807164673114,
+      "no_speech_prob": 0.07890418916940689
+    },
+    {
+      "id": "seg_0055",
+      "start": 242.43,
+      "end": 245.31,
+      "text": "I had two questions about that one.",
+      "avg_logprob": -0.21650807164673114,
+      "no_speech_prob": 0.07890418916940689
+    },
+    {
+      "id": "seg_0056",
+      "start": 245.31,
+      "end": 249.65,
+      "text": "One is, over what time frame are we looking at?",
+      "avg_logprob": -0.21650807164673114,
+      "no_speech_prob": 0.07890418916940689
+    },
+    {
+      "id": "seg_0057",
+      "start": 249.65,
+      "end": 256.63,
+      "text": "So in theory, this could be the same as the GitLab 14 launch,",
+      "avg_logprob": -0.18867425243059793,
+      "no_speech_prob": 0.001248162821866572
+    },
+    {
+      "id": "seg_0058",
+      "start": 256.63,
+      "end": 261.27,
+      "text": "where we're saying, basically, since 13.0,",
+      "avg_logprob": -0.18867425243059793,
+      "no_speech_prob": 0.001248162821866572
+    },
+    {
+      "id": "seg_0059",
+      "start": 261.27,
+      "end": 267.32,
+      "text": "what kind of big improvements have we made?",
+      "avg_logprob": -0.18867425243059793,
+      "no_speech_prob": 0.001248162821866572
+    },
+    {
+      "id": "seg_0060",
+      "start": 267.32,
+      "end": 269.08,
+      "text": "Candidly, this is always a little bit tough.",
+      "avg_logprob": -0.18867425243059793,
+      "no_speech_prob": 0.001248162821866572
+    },
+    {
+      "id": "seg_0061",
+      "start": 269.08,
+      "end": 277.32,
+      "text": "And I am not totally sure of all of the interplay here.",
+      "avg_logprob": -0.18867425243059793,
+      "no_speech_prob": 0.001248162821866572
+    },
+    {
+      "id": "seg_0062",
+      "start": 277.32,
+      "end": 281.08,
+      "text": "But I think this is kind of the general gist",
+      "avg_logprob": -0.2001751165159724,
+      "no_speech_prob": 0.0007758083520457149
+    },
+    {
+      "id": "seg_0063",
+      "start": 281.08,
+      "end": 284.92,
+      "text": "of this assignment is, OK, we have commit coming up.",
+      "avg_logprob": -0.2001751165159724,
+      "no_speech_prob": 0.0007758083520457149
+    },
+    {
+      "id": "seg_0064",
+      "start": 284.92,
+      "end": 288.64,
+      "text": "We have some amount of, like, we have a stage,",
+      "avg_logprob": -0.2001751165159724,
+      "no_speech_prob": 0.0007758083520457149
+    },
+    {
+      "id": "seg_0065",
+      "start": 288.64,
+      "end": 292.96,
+      "text": "a metaphorical stage to say something to the world,",
+      "avg_logprob": -0.2001751165159724,
+      "no_speech_prob": 0.0007758083520457149
+    },
+    {
+      "id": "seg_0066",
+      "start": 292.96,
+      "end": 295.28,
+      "text": "and we'll get some amount of press attention",
+      "avg_logprob": -0.2001751165159724,
+      "no_speech_prob": 0.0007758083520457149
+    },
+    {
+      "id": "seg_0067",
+      "start": 295.28,
+      "end": 297.96,
+      "text": "because we're having an event, right?",
+      "avg_logprob": -0.2001751165159724,
+      "no_speech_prob": 0.0007758083520457149
+    },
+    {
+      "id": "seg_0068",
+      "start": 297.96,
+      "end": 299.48,
+      "text": "What kind of announcements do we make?",
+      "avg_logprob": -0.2001751165159724,
+      "no_speech_prob": 0.0007758083520457149
+    }
+  ],
+  "stt_model": "faster-whisper/small.en",
+  "language": "en",
+  "duration_s": 300.0
+}

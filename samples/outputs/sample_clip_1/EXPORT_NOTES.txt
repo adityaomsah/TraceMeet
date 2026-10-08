@@ -1,0 +1,9 @@
+TraceMeet exports
+
+Markdown, task CSV and meeting JSON use the same citation-checked record.
+Citation matching does not prove semantic support, speaker identity or correct decision/task classification.
+The overall summary is uncited.
+Timestamps cover source segments, not individual words.
+Missing owners/deadlines are null in JSON and Unspecified in readable exports.
+CSV formula-like cells are prefixed with an apostrophe; meeting_record.json preserves original values.
+The recording itself is not included.

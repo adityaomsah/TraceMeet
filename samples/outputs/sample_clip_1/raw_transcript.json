@@ -1,0 +1,735 @@
+{
+  "segments": [
+    {
+      "id": "seg_0001",
+      "start": 5.33,
+      "end": 20.33,
+      "text": "So it is the sick, meaning secure and govern growth and data science meaning applied ml ml ops and anti abuse team meeting. That's a big mouthful, we might get a better name over time.",
+      "avg_logprob": -0.21579810116026138,
+      "no_speech_prob": 0.0019150489242747426
+    },
+    {
+      "id": "seg_0002",
+      "start": 20.33,
+      "end": 37.33,
+      "text": "And that's our meeting for September 14 or 15 in a pack and hi Alan glad you're here. Why are you here when it's midnight, we can talk glad you're here, don't make it happen to come to this meeting since it's really late for you.",
+      "avg_logprob": -0.17276762641574206,
+      "no_speech_prob": 0.05245358124375343
+    },
+    {
+      "id": "seg_0003",
+      "start": 37.33,
+      "end": 41.96,
+      "text": "So, but I'm glad. Thanks for coming at least once.",
+      "avg_logprob": -0.17276762641574206,
+      "no_speech_prob": 0.05245358124375343
+    },
+    {
+      "id": "seg_0004",
+      "start": 41.96,
+      "end": 50.23,
+      "text": "News and events. I've got a lot of things on the agenda today because of some of this.",
+      "avg_logprob": -0.13872990384697914,
+      "no_speech_prob": 0.06525815278291702
+    },
+    {
+      "id": "seg_0005",
+      "start": 50.23,
+      "end": 62.23,
+      "text": "So apologies for that but I think it's going to go down over time. Based on feedback I'll work, I'm going to work to do more summarized communications to improve the signal to noise rate ratio in my communications to groups of people, including this group",
+      "avg_logprob": -0.13872990384697914,
+      "no_speech_prob": 0.06525815278291702
+    },
+    {
+      "id": "seg_0006",
+      "start": 62.23,
+      "end": 63.23,
+      "text": "of people.",
+      "avg_logprob": -0.13872990384697914,
+      "no_speech_prob": 0.06525815278291702
+    },
+    {
+      "id": "seg_0007",
+      "start": 63.23,
+      "end": 64.89,
+      "text": "This will result in, for this group,",
+      "avg_logprob": -0.17689701748061012,
+      "no_speech_prob": 0.0004992045578546822
+    },
+    {
+      "id": "seg_0008",
+      "start": 64.89,
+      "end": 67.47,
+      "text": "adding more items to our staff meeting agenda,",
+      "avg_logprob": -0.17689701748061012,
+      "no_speech_prob": 0.0004992045578546822
+    },
+    {
+      "id": "seg_0009",
+      "start": 67.47,
+      "end": 71.35,
+      "text": "often as read-only, rather than posting to our Slack channel.",
+      "avg_logprob": -0.17689701748061012,
+      "no_speech_prob": 0.0004992045578546822
+    },
+    {
+      "id": "seg_0010",
+      "start": 71.35,
+      "end": 72.53,
+      "text": "And I am going to be assuming that people,",
+      "avg_logprob": -0.17689701748061012,
+      "no_speech_prob": 0.0004992045578546822
+    },
+    {
+      "id": "seg_0011",
+      "start": 72.53,
+      "end": 73.91,
+      "text": "leaders on the team will attend this meeting",
+      "avg_logprob": -0.17689701748061012,
+      "no_speech_prob": 0.0004992045578546822
+    },
+    {
+      "id": "seg_0012",
+      "start": 73.91,
+      "end": 76.11,
+      "text": "or read the notes and not rely on the Slack channel.",
+      "avg_logprob": -0.17689701748061012,
+      "no_speech_prob": 0.0004992045578546822
+    },
+    {
+      "id": "seg_0013",
+      "start": 76.11,
+      "end": 78.23,
+      "text": "So keep that in mind.",
+      "avg_logprob": -0.17689701748061012,
+      "no_speech_prob": 0.0004992045578546822
+    },
+    {
+      "id": "seg_0014",
+      "start": 79.58,
+      "end": 81.46,
+      "text": "Let's see, B is a read-only item,",
+      "avg_logprob": -0.17689701748061012,
+      "no_speech_prob": 0.0004992045578546822
+    },
+    {
+      "id": "seg_0015",
+      "start": 81.46,
+      "end": 83.91,
+      "text": "unless anybody wants to discuss it.",
+      "avg_logprob": -0.17689701748061012,
+      "no_speech_prob": 0.0004992045578546822
+    },
+    {
+      "id": "seg_0016",
+      "start": 83.91,
+      "end": 88.52,
+      "text": "And C, Phil has.",
+      "avg_logprob": -0.17689701748061012,
+      "no_speech_prob": 0.0004992045578546822
+    },
+    {
+      "id": "seg_0017",
+      "start": 88.52,
+      "end": 91.92,
+      "text": "Hi, and welcome, Alan, to the meeting.",
+      "avg_logprob": -0.17689701748061012,
+      "no_speech_prob": 0.0004992045578546822
+    },
+    {
+      "id": "seg_0018",
+      "start": 91.92,
+      "end": 94.52,
+      "text": "I've asked Alan to step in as acting full-stack manager",
+      "avg_logprob": -0.17689701748061012,
+      "no_speech_prob": 0.0004992045578546822
+    },
+    {
+      "id": "seg_0019",
+      "start": 94.52,
+      "end": 98.4,
+      "text": "for security policies while I hire an EM.",
+      "avg_logprob": -0.16986597697813433,
+      "no_speech_prob": 0.0019815987907350063
+    },
+    {
+      "id": "seg_0020",
+      "start": 98.4,
+      "end": 103.08,
+      "text": "Alan has graciously accepted this wonderful opportunity.",
+      "avg_logprob": -0.16986597697813433,
+      "no_speech_prob": 0.0019815987907350063
+    },
+    {
+      "id": "seg_0021",
+      "start": 103.08,
+      "end": 105.32,
+      "text": "So welcome, Alan.",
+      "avg_logprob": -0.16986597697813433,
+      "no_speech_prob": 0.0019815987907350063
+    },
+    {
+      "id": "seg_0022",
+      "start": 105.32,
+      "end": 106.16,
+      "text": "Thank you.",
+      "avg_logprob": -0.16986597697813433,
+      "no_speech_prob": 0.0019815987907350063
+    },
+    {
+      "id": "seg_0023",
+      "start": 110.82,
+      "end": 113.18,
+      "text": "I've got the next item as well.",
+      "avg_logprob": -0.16986597697813433,
+      "no_speech_prob": 0.0019815987907350063
+    },
+    {
+      "id": "seg_0024",
+      "start": 113.18,
+      "end": 115.58,
+      "text": "So anti-abuse is moving product sections",
+      "avg_logprob": -0.16986597697813433,
+      "no_speech_prob": 0.0019815987907350063
+    },
+    {
+      "id": "seg_0025",
+      "start": 115.58,
+      "end": 117.58,
+      "text": "from SEC to data science.",
+      "avg_logprob": -0.16986597697813433,
+      "no_speech_prob": 0.0019815987907350063
+    },
+    {
+      "id": "seg_0026",
+      "start": 119.46,
+      "end": 121.58,
+      "text": "Data science is effectively a rename",
+      "avg_logprob": -0.16986597697813433,
+      "no_speech_prob": 0.0019815987907350063
+    },
+    {
+      "id": "seg_0027",
+      "start": 121.58,
+      "end": 124.9,
+      "text": "of the model ops section.",
+      "avg_logprob": -0.16986597697813433,
+      "no_speech_prob": 0.0019815987907350063
+    },
+    {
+      "id": "seg_0028",
+      "start": 124.9,
+      "end": 128.42,
+      "text": "So data science will include two stages,",
+      "avg_logprob": -0.16986597697813433,
+      "no_speech_prob": 0.0019815987907350063
+    },
+    {
+      "id": "seg_0029",
+      "start": 128.42,
+      "end": 131.06,
+      "text": "the existing model ops, which has three groups in it,",
+      "avg_logprob": -0.12624655944064148,
+      "no_speech_prob": 0.0020785031374543905
+    },
+    {
+      "id": "seg_0030",
+      "start": 131.06,
+      "end": 133.1,
+      "text": "which Mon can talk more about,",
+      "avg_logprob": -0.12624655944064148,
+      "no_speech_prob": 0.0020785031374543905
+    },
+    {
+      "id": "seg_0031",
+      "start": 133.1,
+      "end": 137.1,
+      "text": "and the anti-abuse stage,",
+      "avg_logprob": -0.12624655944064148,
+      "no_speech_prob": 0.0020785031374543905
+    },
+    {
+      "id": "seg_0032",
+      "start": 137.1,
+      "end": 138.9,
+      "text": "which only currently has one group,",
+      "avg_logprob": -0.12624655944064148,
+      "no_speech_prob": 0.0020785031374543905
+    },
+    {
+      "id": "seg_0033",
+      "start": 138.9,
+      "end": 140.94,
+      "text": "which is called anti-abuse.",
+      "avg_logprob": -0.12624655944064148,
+      "no_speech_prob": 0.0020785031374543905
+    },
+    {
+      "id": "seg_0034",
+      "start": 140.94,
+      "end": 142.5,
+      "text": "I think at some point there are plans",
+      "avg_logprob": -0.12624655944064148,
+      "no_speech_prob": 0.0020785031374543905
+    },
+    {
+      "id": "seg_0035",
+      "start": 142.5,
+      "end": 144.62,
+      "text": "to split anti-abuse into two groups,",
+      "avg_logprob": -0.12624655944064148,
+      "no_speech_prob": 0.0020785031374543905
+    },
+    {
+      "id": "seg_0036",
+      "start": 144.62,
+      "end": 150.26,
+      "text": "but that's not in the near term.",
+      "avg_logprob": -0.12624655944064148,
+      "no_speech_prob": 0.0020785031374543905
+    },
+    {
+      "id": "seg_0037",
+      "start": 150.26,
+      "end": 152.9,
+      "text": "And we're working through all the changes around that.",
+      "avg_logprob": -0.12624655944064148,
+      "no_speech_prob": 0.0020785031374543905
+    },
+    {
+      "id": "seg_0038",
+      "start": 152.9,
+      "end": 154.3,
+      "text": "There's lots of workday changes,",
+      "avg_logprob": -0.12624655944064148,
+      "no_speech_prob": 0.0020785031374543905
+    },
+    {
+      "id": "seg_0039",
+      "start": 154.3,
+      "end": 155.62,
+      "text": "lots of handbook changes.",
+      "avg_logprob": -0.12624655944064148,
+      "no_speech_prob": 0.0020785031374543905
+    },
+    {
+      "id": "seg_0040",
+      "start": 156.7,
+      "end": 158.5,
+      "text": "Mon, did you wanna say anything more",
+      "avg_logprob": -0.12624655944064148,
+      "no_speech_prob": 0.0020785031374543905
+    },
+    {
+      "id": "seg_0041",
+      "start": 158.5,
+      "end": 160.22,
+      "text": "about data science or model ops?",
+      "avg_logprob": -0.12624655944064148,
+      "no_speech_prob": 0.0020785031374543905
+    },
+    {
+      "id": "seg_0042",
+      "start": 161.46,
+      "end": 166.42,
+      "text": "No, I think for us, we just roll up to data science,",
+      "avg_logprob": -0.26776943797782315,
+      "no_speech_prob": 0.019031498581171036
+    },
+    {
+      "id": "seg_0043",
+      "start": 166.42,
+      "end": 169.1,
+      "text": "everything else stays the same.",
+      "avg_logprob": -0.26776943797782315,
+      "no_speech_prob": 0.019031498581171036
+    },
+    {
+      "id": "seg_0044",
+      "start": 169.1,
+      "end": 171.5,
+      "text": "We still have the two main groups,",
+      "avg_logprob": -0.26776943797782315,
+      "no_speech_prob": 0.019031498581171036
+    },
+    {
+      "id": "seg_0045",
+      "start": 171.5,
+      "end": 174.42,
+      "text": "Applied ML, MLOps, and then later DataOps,",
+      "avg_logprob": -0.26776943797782315,
+      "no_speech_prob": 0.019031498581171036
+    },
+    {
+      "id": "seg_0046",
+      "start": 174.42,
+      "end": 179.0,
+      "text": "as part of it, yeah.",
+      "avg_logprob": -0.26776943797782315,
+      "no_speech_prob": 0.019031498581171036
+    },
+    {
+      "id": "seg_0047",
+      "start": 179.0,
+      "end": 181.08,
+      "text": "So, Eneet, thanks, Thomas,",
+      "avg_logprob": -0.26776943797782315,
+      "no_speech_prob": 0.019031498581171036
+    },
+    {
+      "id": "seg_0048",
+      "start": 181.08,
+      "end": 183.12,
+      "text": "for continuing to compile and report",
+      "avg_logprob": -0.26776943797782315,
+      "no_speech_prob": 0.019031498581171036
+    },
+    {
+      "id": "seg_0049",
+      "start": 183.12,
+      "end": 187.4,
+      "text": "across all of my teams that I'm responsible for",
+      "avg_logprob": -0.26776943797782315,
+      "no_speech_prob": 0.019031498581171036
+    },
+    {
+      "id": "seg_0050",
+      "start": 187.4,
+      "end": 189.0,
+      "text": "in the engineering allocation meeting",
+      "avg_logprob": -0.26776943797782315,
+      "no_speech_prob": 0.019031498581171036
+    },
+    {
+      "id": "seg_0051",
+      "start": 189.0,
+      "end": 192.28,
+      "text": "on error budgets and reliability and security incidents.",
+      "avg_logprob": -0.26776943797782315,
+      "no_speech_prob": 0.019031498581171036
+    },
+    {
+      "id": "seg_0052",
+      "start": 192.28,
+      "end": 196.34,
+      "text": "So really do appreciate that.",
+      "avg_logprob": -0.26776943797782315,
+      "no_speech_prob": 0.019031498581171036
+    },
+    {
+      "id": "seg_0053",
+      "start": 196.34,
+      "end": 197.82,
+      "text": "Gotta give Neil a high five too.",
+      "avg_logprob": -0.18503672235152302,
+      "no_speech_prob": 0.016721103340387344
+    },
+    {
+      "id": "seg_0054",
+      "start": 197.82,
+      "end": 200.3,
+      "text": "He does half of these now.",
+      "avg_logprob": -0.18503672235152302,
+      "no_speech_prob": 0.016721103340387344
+    },
+    {
+      "id": "seg_0055",
+      "start": 200.3,
+      "end": 203.78,
+      "text": "And apologies for the noise if I keep asking",
+      "avg_logprob": -0.18503672235152302,
+      "no_speech_prob": 0.016721103340387344
+    },
+    {
+      "id": "seg_0056",
+      "start": 203.78,
+      "end": 205.82,
+      "text": "for what's the story behind what's going on",
+      "avg_logprob": -0.18503672235152302,
+      "no_speech_prob": 0.016721103340387344
+    },
+    {
+      "id": "seg_0057",
+      "start": 205.82,
+      "end": 209.1,
+      "text": "with the reliability or security or error budget stuff,",
+      "avg_logprob": -0.18503672235152302,
+      "no_speech_prob": 0.016721103340387344
+    },
+    {
+      "id": "seg_0058",
+      "start": 209.1,
+      "end": 211.38,
+      "text": "just trying to provide air cover.",
+      "avg_logprob": -0.18503672235152302,
+      "no_speech_prob": 0.016721103340387344
+    },
+    {
+      "id": "seg_0059",
+      "start": 211.38,
+      "end": 212.82,
+      "text": "And I, apologies, Neil.",
+      "avg_logprob": -0.18503672235152302,
+      "no_speech_prob": 0.016721103340387344
+    },
+    {
+      "id": "seg_0060",
+      "start": 212.82,
+      "end": 214.3,
+      "text": "I totally forgot you took half of these",
+      "avg_logprob": -0.18503672235152302,
+      "no_speech_prob": 0.016721103340387344
+    },
+    {
+      "id": "seg_0061",
+      "start": 214.3,
+      "end": 215.96,
+      "text": "since Thomas has been doing it for so long,",
+      "avg_logprob": -0.18503672235152302,
+      "no_speech_prob": 0.016721103340387344
+    },
+    {
+      "id": "seg_0062",
+      "start": 215.96,
+      "end": 217.02,
+      "text": "but I appreciate it, Neil.",
+      "avg_logprob": -0.18503672235152302,
+      "no_speech_prob": 0.016721103340387344
+    },
+    {
+      "id": "seg_0063",
+      "start": 217.02,
+      "end": 218.94,
+      "text": "I know you volunteered for it and we discussed it,",
+      "avg_logprob": -0.18503672235152302,
+      "no_speech_prob": 0.016721103340387344
+    },
+    {
+      "id": "seg_0064",
+      "start": 218.94,
+      "end": 220.02,
+      "text": "but I just, for that.",
+      "avg_logprob": -0.18503672235152302,
+      "no_speech_prob": 0.016721103340387344
+    },
+    {
+      "id": "seg_0065",
+      "start": 220.02,
+      "end": 222.42,
+      "text": "Kind of a thankless role, honestly.",
+      "avg_logprob": -0.18503672235152302,
+      "no_speech_prob": 0.016721103340387344
+    },
+    {
+      "id": "seg_0066",
+      "start": 222.42,
+      "end": 225.5,
+      "text": "And I volunteered because of the exposure I get from it.",
+      "avg_logprob": -0.18503672235152302,
+      "no_speech_prob": 0.016721103340387344
+    },
+    {
+      "id": "seg_0067",
+      "start": 225.5,
+      "end": 228.3,
+      "text": "It's nice to be part of a different collective group",
+      "avg_logprob": -0.1420072867320134,
+      "no_speech_prob": 0.004570470191538334
+    },
+    {
+      "id": "seg_0068",
+      "start": 228.3,
+      "end": 229.34,
+      "text": "of people.",
+      "avg_logprob": -0.1420072867320134,
+      "no_speech_prob": 0.004570470191538334
+    },
+    {
+      "id": "seg_0069",
+      "start": 229.34,
+      "end": 231.34,
+      "text": "I was going to mention, I'll type this in here,",
+      "avg_logprob": -0.1420072867320134,
+      "no_speech_prob": 0.004570470191538334
+    },
+    {
+      "id": "seg_0070",
+      "start": 231.34,
+      "end": 235.06,
+      "text": "but Tiago had set up for container security,",
+      "avg_logprob": -0.1420072867320134,
+      "no_speech_prob": 0.004570470191538334
+    },
+    {
+      "id": "seg_0071",
+      "start": 235.06,
+      "end": 239.1,
+      "text": "a bot that weekly, I think it's Mondays or like Sunday,",
+      "avg_logprob": -0.1420072867320134,
+      "no_speech_prob": 0.004570470191538334
+    },
+    {
+      "id": "seg_0072",
+      "start": 239.1,
+      "end": 241.42,
+      "text": "will ping the team and ask for volunteer",
+      "avg_logprob": -0.1420072867320134,
+      "no_speech_prob": 0.004570470191538334
+    },
+    {
+      "id": "seg_0073",
+      "start": 241.42,
+      "end": 243.8,
+      "text": "to go and resource that data.",
+      "avg_logprob": -0.1420072867320134,
+      "no_speech_prob": 0.004570470191538334
+    },
+    {
+      "id": "seg_0074",
+      "start": 243.8,
+      "end": 245.98,
+      "text": "And we just enabled it for thread insights.",
+      "avg_logprob": -0.1420072867320134,
+      "no_speech_prob": 0.004570470191538334
+    },
+    {
+      "id": "seg_0075",
+      "start": 245.98,
+      "end": 247.06,
+      "text": "It's actually pretty sweet.",
+      "avg_logprob": -0.1420072867320134,
+      "no_speech_prob": 0.004570470191538334
+    },
+    {
+      "id": "seg_0076",
+      "start": 247.06,
+      "end": 249.46,
+      "text": "And it just, it does all the work for you, Thomas, right?",
+      "avg_logprob": -0.1420072867320134,
+      "no_speech_prob": 0.004570470191538334
+    },
+    {
+      "id": "seg_0077",
+      "start": 249.46,
+      "end": 251.8,
+      "text": "We don't have to ping people ourselves.",
+      "avg_logprob": -0.1420072867320134,
+      "no_speech_prob": 0.004570470191538334
+    },
+    {
+      "id": "seg_0078",
+      "start": 251.8,
+      "end": 255.82,
+      "text": "So I'll put a note in there for that.",
+      "avg_logprob": -0.1420072867320134,
+      "no_speech_prob": 0.004570470191538334
+    },
+    {
+      "id": "seg_0079",
+      "start": 255.82,
+      "end": 262.53,
+      "text": "The F is read only and Bill, you've got G.",
+      "avg_logprob": -0.22229825958199456,
+      "no_speech_prob": 0.19064739346504211
+    },
+    {
+      "id": "seg_0080",
+      "start": 262.53,
+      "end": 264.17,
+      "text": "Yeah, talent assessment.",
+      "avg_logprob": -0.22229825958199456,
+      "no_speech_prob": 0.19064739346504211
+    },
+    {
+      "id": "seg_0081",
+      "start": 264.17,
+      "end": 266.21,
+      "text": "So we had an update from Juliana.",
+      "avg_logprob": -0.22229825958199456,
+      "no_speech_prob": 0.19064739346504211
+    },
+    {
+      "id": "seg_0082",
+      "start": 267.29,
+      "end": 269.69,
+      "text": "The dates haven't been confirmed yet,",
+      "avg_logprob": -0.22229825958199456,
+      "no_speech_prob": 0.19064739346504211
+    },
+    {
+      "id": "seg_0083",
+      "start": 269.69,
+      "end": 273.01,
+      "text": "but it'll be sometime from mid-October through to December.",
+      "avg_logprob": -0.22229825958199456,
+      "no_speech_prob": 0.19064739346504211
+    },
+    {
+      "id": "seg_0084",
+      "start": 273.01,
+      "end": 275.85,
+      "text": "I think E-group sign-off is expected to be mid-December",
+      "avg_logprob": -0.22229825958199456,
+      "no_speech_prob": 0.19064739346504211
+    },
+    {
+      "id": "seg_0085",
+      "start": 275.85,
+      "end": 277.61,
+      "text": "before everyone goes on holiday.",
+      "avg_logprob": -0.22229825958199456,
+      "no_speech_prob": 0.19064739346504211
+    },
+    {
+      "id": "seg_0086",
+      "start": 279.37,
+      "end": 281.09,
+      "text": "They've got a draft timeline in there,",
+      "avg_logprob": -0.22229825958199456,
+      "no_speech_prob": 0.19064739346504211
+    },
+    {
+      "id": "seg_0087",
+      "start": 281.09,
+      "end": 283.91,
+      "text": "but the dates aren't in the handbook yet.",
+      "avg_logprob": -0.22229825958199456,
+      "no_speech_prob": 0.19064739346504211
+    },
+    {
+      "id": "seg_0088",
+      "start": 283.91,
+      "end": 288.91,
+      "text": "The big changes, we're moving to do it in Workday.",
+      "avg_logprob": -0.19979241653345525,
+      "no_speech_prob": 0.012339841574430466
+    },
+    {
+      "id": "seg_0089",
+      "start": 288.91,
+      "end": 292.91,
+      "text": "That's not available yet. I haven't seen a demo of it.",
+      "avg_logprob": -0.19979241653345525,
+      "no_speech_prob": 0.012339841574430466
+    },
+    {
+      "id": "seg_0090",
+      "start": 292.91,
+      "end": 295.91,
+      "text": "I don't know what questions will be asked.",
+      "avg_logprob": -0.19979241653345525,
+      "no_speech_prob": 0.012339841574430466
+    },
+    {
+      "id": "seg_0091",
+      "start": 295.91,
+      "end": 299.91,
+      "text": "But there's an optional self-evaluation which will move into Workday.",
+      "avg_logprob": -0.19979241653345525,
+      "no_speech_prob": 0.012339841574430466
+    }
+  ],
+  "stt_model": "faster-whisper/small.en",
+  "language": "en",
+  "duration_s": 300.0
+}

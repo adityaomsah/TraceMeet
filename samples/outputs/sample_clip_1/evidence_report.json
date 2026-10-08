@@ -1,0 +1,558 @@
+{
+  "verifier_version": "evidence-v1",
+  "status": "citation_checked_semantics_unverified",
+  "match_policy": "exact_substring_with_word_boundaries",
+  "semantic_support_checked": false,
+  "summary_status": "uncited",
+  "counts": {
+    "exact_matches": 53,
+    "invalid_citations": 0,
+    "dropped_items": 0,
+    "cleared_fields": 0
+  },
+  "citation_checks": [
+    {
+      "segment_id": "seg_0001",
+      "quote": "So it is the sick, meaning secure and govern growth and data science meaning applied ml ml ops and anti abuse team meeting. That's a big mouthful, we might get a better name over time.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 184,
+      "start_s": 5.33,
+      "end_s": 20.33,
+      "path": "minutes[0].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0002",
+      "quote": "And that's our meeting for September 14 or 15 in a pack and hi Alan glad you're here. Why are you here when it's midnight, we can talk glad you're here, don't make it happen to come to this meeting since it's really late for you.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 229,
+      "start_s": 20.33,
+      "end_s": 37.33,
+      "path": "minutes[1].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0005",
+      "quote": "So apologies for that, but I think it's going to go down over time. Based on feedback I'll work, I'm going to work to do more summarized communications to improve the signal-to-noise ratio in my communications to groups of people, including this group",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 251,
+      "start_s": 50.23,
+      "end_s": 62.23,
+      "path": "minutes[2].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0007",
+      "quote": "This will result in, for this group,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 36,
+      "start_s": 63.23,
+      "end_s": 64.89,
+      "path": "minutes[3].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0008",
+      "quote": "adding more items to our staff meeting agenda,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 46,
+      "start_s": 64.89,
+      "end_s": 67.47,
+      "path": "minutes[3].evidence[1]"
+    },
+    {
+      "segment_id": "seg_0009",
+      "quote": "often as read-only, rather than posting to our Slack channel.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 61,
+      "start_s": 67.47,
+      "end_s": 71.35,
+      "path": "minutes[3].evidence[2]"
+    },
+    {
+      "segment_id": "seg_0010",
+      "quote": "And I am going to be assuming that people,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 42,
+      "start_s": 71.35,
+      "end_s": 72.53,
+      "path": "minutes[4].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0011",
+      "quote": "leaders on the team will attend this meeting",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 44,
+      "start_s": 72.53,
+      "end_s": 73.91,
+      "path": "minutes[4].evidence[1]"
+    },
+    {
+      "segment_id": "seg_0012",
+      "quote": "or read the notes and not rely on the Slack channel.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 52,
+      "start_s": 73.91,
+      "end_s": 76.11,
+      "path": "minutes[4].evidence[2]"
+    },
+    {
+      "segment_id": "seg_0014",
+      "quote": "Let's see, B is a read-only item,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 33,
+      "start_s": 79.58,
+      "end_s": 81.46,
+      "path": "minutes[5].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0015",
+      "quote": "unless anybody wants to discuss it.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 35,
+      "start_s": 81.46,
+      "end_s": 83.91,
+      "path": "minutes[5].evidence[1]"
+    },
+    {
+      "segment_id": "seg_0079",
+      "quote": "The F is read only and Bill, you've got G.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 42,
+      "start_s": 255.82,
+      "end_s": 262.53,
+      "path": "minutes[6].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0080",
+      "quote": "Yeah, talent assessment.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 24,
+      "start_s": 262.53,
+      "end_s": 264.17,
+      "path": "minutes[6].evidence[1]"
+    },
+    {
+      "segment_id": "seg_0018",
+      "quote": "I've asked Alan to step in as acting full-stack manager",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 55,
+      "start_s": 91.92,
+      "end_s": 94.52,
+      "path": "minutes[7].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0019",
+      "quote": "for security policies while I hire an EM.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 41,
+      "start_s": 94.52,
+      "end_s": 98.4,
+      "path": "minutes[7].evidence[1]"
+    },
+    {
+      "segment_id": "seg_0020",
+      "quote": "Alan has graciously accepted this wonderful opportunity.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 56,
+      "start_s": 98.4,
+      "end_s": 103.08,
+      "path": "minutes[7].evidence[2]"
+    },
+    {
+      "segment_id": "seg_0024",
+      "quote": "So anti-abuse is moving product sections",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 40,
+      "start_s": 113.18,
+      "end_s": 115.58,
+      "path": "minutes[8].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0025",
+      "quote": "from SEC to data science.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 25,
+      "start_s": 115.58,
+      "end_s": 117.58,
+      "path": "minutes[8].evidence[1]"
+    },
+    {
+      "segment_id": "seg_0026",
+      "quote": "Data science is effectively a rename",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 36,
+      "start_s": 119.46,
+      "end_s": 121.58,
+      "path": "minutes[8].evidence[2]"
+    },
+    {
+      "segment_id": "seg_0028",
+      "quote": "So data science will include two stages,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 40,
+      "start_s": 124.9,
+      "end_s": 128.42,
+      "path": "minutes[9].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0029",
+      "quote": "the existing model ops, which has three groups in it,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 53,
+      "start_s": 128.42,
+      "end_s": 131.06,
+      "path": "minutes[9].evidence[1]"
+    },
+    {
+      "segment_id": "seg_0030",
+      "quote": "which Mon can talk more about,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 30,
+      "start_s": 131.06,
+      "end_s": 133.1,
+      "path": "minutes[9].evidence[2]"
+    },
+    {
+      "segment_id": "seg_0031",
+      "quote": "and the anti-abuse stage,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 25,
+      "start_s": 133.1,
+      "end_s": 137.1,
+      "path": "minutes[9].evidence[3]"
+    },
+    {
+      "segment_id": "seg_0032",
+      "quote": "which only currently has one group,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 35,
+      "start_s": 137.1,
+      "end_s": 138.9,
+      "path": "minutes[9].evidence[4]"
+    },
+    {
+      "segment_id": "seg_0033",
+      "quote": "which is called anti-abuse.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 27,
+      "start_s": 138.9,
+      "end_s": 140.94,
+      "path": "minutes[9].evidence[5]"
+    },
+    {
+      "segment_id": "seg_0035",
+      "quote": "to split anti-abuse into two groups,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 36,
+      "start_s": 142.5,
+      "end_s": 144.62,
+      "path": "minutes[10].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0036",
+      "quote": "but that's not in the near term.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 32,
+      "start_s": 144.62,
+      "end_s": 150.26,
+      "path": "minutes[10].evidence[1]"
+    },
+    {
+      "segment_id": "seg_0042",
+      "quote": "No, I think for us, we just roll up to data science,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 52,
+      "start_s": 161.46,
+      "end_s": 166.42,
+      "path": "minutes[11].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0043",
+      "quote": "everything else stays the same.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 31,
+      "start_s": 166.42,
+      "end_s": 169.1,
+      "path": "minutes[11].evidence[1]"
+    },
+    {
+      "segment_id": "seg_0044",
+      "quote": "We still have the two main groups,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 34,
+      "start_s": 169.1,
+      "end_s": 171.5,
+      "path": "minutes[11].evidence[2]"
+    },
+    {
+      "segment_id": "seg_0045",
+      "quote": "Applied ML, MLOps, and then later DataOps,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 42,
+      "start_s": 171.5,
+      "end_s": 174.42,
+      "path": "minutes[11].evidence[3]"
+    },
+    {
+      "segment_id": "seg_0046",
+      "quote": "as part of it, yeah.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 20,
+      "start_s": 174.42,
+      "end_s": 179.0,
+      "path": "minutes[11].evidence[4]"
+    },
+    {
+      "segment_id": "seg_0069",
+      "quote": "I was going to mention, I'll type this in here,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 47,
+      "start_s": 229.34,
+      "end_s": 231.34,
+      "path": "minutes[12].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0070",
+      "quote": "but Tiago had set up for container security,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 44,
+      "start_s": 231.34,
+      "end_s": 235.06,
+      "path": "minutes[12].evidence[1]"
+    },
+    {
+      "segment_id": "seg_0071",
+      "quote": "a bot that weekly, I think it's Mondays or like Sunday,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 55,
+      "start_s": 235.06,
+      "end_s": 239.1,
+      "path": "minutes[12].evidence[2]"
+    },
+    {
+      "segment_id": "seg_0072",
+      "quote": "will ping the team and ask for volunteer",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 40,
+      "start_s": 239.1,
+      "end_s": 241.42,
+      "path": "minutes[12].evidence[3]"
+    },
+    {
+      "segment_id": "seg_0073",
+      "quote": "to go and resource that data.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 29,
+      "start_s": 241.42,
+      "end_s": 243.8,
+      "path": "minutes[12].evidence[4]"
+    },
+    {
+      "segment_id": "seg_0074",
+      "quote": "And we just enabled it for thread insights.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 43,
+      "start_s": 243.8,
+      "end_s": 245.98,
+      "path": "minutes[12].evidence[5]"
+    },
+    {
+      "segment_id": "seg_0081",
+      "quote": "So we had an update from Juliana.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 33,
+      "start_s": 264.17,
+      "end_s": 266.21,
+      "path": "minutes[13].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0082",
+      "quote": "The dates haven't been confirmed yet,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 37,
+      "start_s": 267.29,
+      "end_s": 269.69,
+      "path": "minutes[13].evidence[1]"
+    },
+    {
+      "segment_id": "seg_0083",
+      "quote": "but it'll be sometime from mid-October through to December.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 59,
+      "start_s": 269.69,
+      "end_s": 273.01,
+      "path": "minutes[13].evidence[2]"
+    },
+    {
+      "segment_id": "seg_0084",
+      "quote": "I think E-group sign-off is expected to be mid-December",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 55,
+      "start_s": 273.01,
+      "end_s": 275.85,
+      "path": "minutes[13].evidence[3]"
+    },
+    {
+      "segment_id": "seg_0085",
+      "quote": "before everyone goes on holiday.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 32,
+      "start_s": 275.85,
+      "end_s": 277.61,
+      "path": "minutes[13].evidence[4]"
+    },
+    {
+      "segment_id": "seg_0086",
+      "quote": "They've got a draft timeline in there,",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 38,
+      "start_s": 279.37,
+      "end_s": 281.09,
+      "path": "minutes[13].evidence[5]"
+    },
+    {
+      "segment_id": "seg_0087",
+      "quote": "but the dates aren't in the handbook yet.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 41,
+      "start_s": 281.09,
+      "end_s": 283.91,
+      "path": "minutes[13].evidence[6]"
+    },
+    {
+      "segment_id": "seg_0088",
+      "quote": "The big changes, we're moving to do it in Workday.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 50,
+      "start_s": 283.91,
+      "end_s": 288.91,
+      "path": "minutes[14].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0089",
+      "quote": "That's not available yet. I haven't seen a demo of it.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 54,
+      "start_s": 288.91,
+      "end_s": 292.91,
+      "path": "minutes[14].evidence[1]"
+    },
+    {
+      "segment_id": "seg_0090",
+      "quote": "I don't know what questions will be asked.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 42,
+      "start_s": 292.91,
+      "end_s": 295.91,
+      "path": "minutes[14].evidence[2]"
+    },
+    {
+      "segment_id": "seg_0091",
+      "quote": "But there's an optional self-evaluation which will move into Workday.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 69,
+      "start_s": 295.91,
+      "end_s": 299.91,
+      "path": "minutes[14].evidence[3]"
+    },
+    {
+      "segment_id": "seg_0018",
+      "quote": "I've asked Alan to step in as acting full-stack manager",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 55,
+      "start_s": 91.92,
+      "end_s": 94.52,
+      "path": "decisions[0].evidence[0]"
+    },
+    {
+      "segment_id": "seg_0019",
+      "quote": "for security policies while I hire an EM.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 41,
+      "start_s": 94.52,
+      "end_s": 98.4,
+      "path": "decisions[0].evidence[1]"
+    },
+    {
+      "segment_id": "seg_0020",
+      "quote": "Alan has graciously accepted this wonderful opportunity.",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 56,
+      "start_s": 98.4,
+      "end_s": 103.08,
+      "path": "decisions[0].evidence[2]"
+    },
+    {
+      "segment_id": "seg_0005",
+      "quote": "So apologies for that, but I think it's going to go down over time. Based on feedback I'll work, I'm going to work to do more summarized communications to improve the signal-to-noise ratio in my communications to groups of people, including this group",
+      "status": "exact_match",
+      "quote_start": 0,
+      "quote_end": 251,
+      "start_s": 50.23,
+      "end_s": 62.23,
+      "path": "action_items[0].evidence[0]"
+    }
+  ],
+  "issues": [
+    {
+      "path": "summary",
+      "action": "flag",
+      "reason": "The current summary field has no citations. It is retained as an unverified overview."
+    }
+  ],
+  "limitations": [
+    "Exact quotes do not prove that an associated claim follows from them.",
+    "Speaker attribution and decision/task statuses are not verified.",
+    "The overall summary has no citations in the current schema.",
+    "Playback timestamps cover the source segment, not the exact quote."
+  ]
+}
